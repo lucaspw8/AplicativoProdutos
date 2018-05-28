@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="300dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+
+    <TextView
+        android:id="@+id/txtTitulotela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CADASTRO DE PRODUTO"
+        android:textAlignment="center"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txtNomeprod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtTitulotela"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Nome:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtNomeProd"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeprod"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/txtNomeprod" />
+
+
+    <TextView
+        android:id="@+id/txtValorProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtNomeprod"
+        android:layout_marginTop="21dp"
+        android:paddingRight="5dp"
+        android:textColor="@color/CorPreta"
+        android:text="Valor:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtValorProd"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtValorProd"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/txtValorProd" />
+
+
+    <Button
+        android:id="@+id/btnCadastrarProd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:text="CADASTRAR" />
+
+</RelativeLayout>

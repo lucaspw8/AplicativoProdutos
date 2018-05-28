@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="130dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+
+    <TextView
+        android:id="@+id/txtTitulotela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOVO USUARIO"
+        android:textAlignment="center"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txtNomeUsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtTitulotela"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Nome:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtNomeUsu"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeUsu"
+        android:layout_marginLeft="12dp"
+        android:hint="Seu nome..."
+        android:inputType="textCapSentences"
+        android:layout_toRightOf="@+id/txtNomeUsu" />
+
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtNomeUsu"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="E-mail:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtEmailUsu"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtEmail"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/txtEmail"
+        android:hint="Seu e-mail para login..."
+        android:inputType="textEmailAddress"/>
+
+
+    <TextView
+        android:id="@+id/txtSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtEmail"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Senha:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtSenhaUsu"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtSenha"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/txtSenha"
+        android:hint="Insira sua senha..."
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/txtRepetirSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtSenha"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Repetir:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtRepetirSenhaUsu"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtRepetirSenha"
+        android:hint="Repita a senha..."
+        android:layout_toRightOf="@+id/txtRepetirSenha"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/txtTipoUsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtRepetirSenha"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Sou um usuario:"
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTipoUsu">
+
+        <RadioButton
+            android:id="@+id/radioConsumidor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONSUMIDOR"/>
+
+        <RadioButton
+            android:id="@+id/radioVendedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VENDEDOR"/>
+    </RadioGroup>
+
+
+
+    <Button
+        android:id="@+id/btnCadastrarUsu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:text="CADASTRAR" />
+
+</RelativeLayout>
