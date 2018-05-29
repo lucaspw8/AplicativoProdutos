@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="70dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+
+    <TextView
+        android:id="@+id/txtTitulotela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CADASTRE SUA EMPRESA"
+        android:textAlignment="center"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txtNomeEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtTitulotela"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/CorPreta"
+        android:text="Nome:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtNomeEmpresa"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeEmpresa"
+        android:layout_marginLeft="31dp"
+        android:layout_toRightOf="@+id/txtNomeEmpresa" />
+
+
+    <TextView
+        android:id="@+id/txtTelefoneEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtNomeEmpresa"
+        android:layout_marginTop="21dp"
+
+        android:textColor="@color/CorPreta"
+        android:text="Telefone:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtTelefoneEmpresa"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtTelefoneEmpresa"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/txtTelefoneEmpresa"
+        android:inputType="phone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtTelefoneEmpresa"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="ENDEREÇO"
+        android:textColor="@color/CorPreta"
+        android:textSize="16sp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edtRua"
+        android:layout_alignBottom="@+id/edtRua"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Rua:"
+        android:textColor="@color/CorPreta"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtRua"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edtTelefoneEmpresa"
+        android:layout_alignStart="@+id/edtTelefoneEmpresa"
+        android:layout_below="@+id/textView"
+        android:inputType="textPersonName"
+       />
+
+    <TextView
+        android:id="@+id/txtBairro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edtBairro"
+        android:layout_alignBottom="@+id/edtBairro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Bairro:"
+        android:textColor="@color/CorPreta"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtBairro"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edtRua"
+        android:layout_alignStart="@+id/edtRua"
+        android:layout_below="@+id/edtRua"
+
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/txtNumero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edtNumero"
+        android:layout_alignBottom="@+id/edtNumero"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Número:"
+        android:textColor="@color/CorPreta"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtNumero"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edtBairro"
+        android:layout_alignStart="@+id/edtBairro"
+        android:layout_below="@+id/edtBairro"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/txtComplemento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtNumero"
+        android:layout_marginTop="11dp"
+        android:text="Complemento:"
+        android:textColor="@color/CorPreta"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtComplemento"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtComplemento"
+        android:layout_alignBottom="@+id/txtComplemento"
+        android:layout_toEndOf="@+id/txtComplemento"
+        android:layout_toRightOf="@+id/txtComplemento"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnCadastrarEmpresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="CADASTRAR" />
+
+
+
+
+</RelativeLayout>
