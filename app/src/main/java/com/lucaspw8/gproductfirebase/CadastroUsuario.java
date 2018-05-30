@@ -76,6 +76,8 @@ public class CadastroUsuario extends AppCompatActivity {
             }
         });
     }
+
+
     //Cadastra o usuario para se autenticar
     private void cadastrarUsuario() {
         autenticacao = ConfiguracaoFirebase.getFirebaseAuth();
@@ -104,7 +106,7 @@ public class CadastroUsuario extends AppCompatActivity {
                     }
                 });
     }
-
+    //Cadastra os restante dos dados do usuario recem cadastrado
     private boolean insereUsuario(Usuario usuario) {
         try {
             reference = ConfiguracaoFirebase.getFirebase().child("usuarios");

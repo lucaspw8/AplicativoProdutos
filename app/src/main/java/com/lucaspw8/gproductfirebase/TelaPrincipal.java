@@ -41,7 +41,7 @@ public class TelaPrincipal extends AppCompatActivity {
         //Recebendo email do usuario logado no momento
         String email = autenticacao.getCurrentUser().getEmail();
 
-        referenceFirebase.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
+        referenceFirebase.child("usuarios").orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
@@ -77,6 +77,9 @@ public class TelaPrincipal extends AppCompatActivity {
         }
         else if(id == R.id.sair_consumidor){
             deslogar();
+        }else if(id == R.id.empresa){
+            Intent intent = new Intent(this, CadastroEmpresaActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

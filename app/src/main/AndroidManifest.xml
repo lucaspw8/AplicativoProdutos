@@ -21,7 +21,8 @@
         <activity android:name=".CadastroProduto" />
         <activity android:name=".CadastroUsuario" />
         <activity android:name=".TelaPrincipal" />
-        <activity android:name=".CadastroEmpresaActivity"></activity>
+        <activity android:name=".CadastroEmpresaActivity" />
+
     </application>
 
 </manifest>

@@ -15,6 +15,10 @@
         android:title="Desconectar"
         app:showAsAction="collapseActionView"/>
 
+    <item
+        android:id="@+id/empresa"
+        android:title="Empresa"
+        app:showAsAction="collapseActionView"/>
 
 
 
