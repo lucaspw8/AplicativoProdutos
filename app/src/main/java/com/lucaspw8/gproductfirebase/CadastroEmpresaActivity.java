@@ -3,6 +3,8 @@ package com.lucaspw8.gproductfirebase;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +25,7 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
     private EditText numeroEmpresa;
     private EditText complementoEmpresa;
     private Button btnCadastrarEmpresa;
-
+    private Menu menu1;
 
     private FirebaseAuth autenticacao;
     private FirebaseDatabase database;
@@ -74,5 +76,30 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText( CadastroEmpresaActivity.this,"Erro ao cadastrar "+e.getMessage(),Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu1 = menu;
+        getMenuInflater().inflate(R.menu.menu_comprador,menu1);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.sair_consumidor) {
+            deslogar();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deslogar() {
+        autenticacao.signOut();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

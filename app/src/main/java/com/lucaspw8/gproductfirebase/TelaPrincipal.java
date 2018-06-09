@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Usuario;
+import com.lucaspw8.gproductfirebase.Helper.Preferencias;
 
 public class TelaPrincipal extends AppCompatActivity {
     private FirebaseAuth autenticacao;
@@ -22,11 +23,15 @@ public class TelaPrincipal extends AppCompatActivity {
     private Usuario usuario;
     private String tipoUsuEmail;
     private Menu menu1;
+    private Preferencias preferencias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
+
         tipoUsuario = (TextView)findViewById(R.id.txttipoUsuario) ;
+        preferencias = new Preferencias(TelaPrincipal.this);
 
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
@@ -38,14 +43,10 @@ public class TelaPrincipal extends AppCompatActivity {
         menu.clear();
         this.menu1 = menu;
 
-        //Recebendo email do usuario logado no momento
-        String email = autenticacao.getCurrentUser().getEmail();
+        //Recebendo email do usuario logado atraves do SharedPreferences
+        String email = preferencias.getEmailUsu();
 
-        referenceFirebase.child("usuarios").orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    tipoUsuEmail = postSnapshot.child("tipoUsuario").getValue().toString();
+                    tipoUsuEmail = preferencias.getTipoUsu();
                     tipoUsuario.setText(tipoUsuEmail);
                     menu1.clear();
 
@@ -54,14 +55,7 @@ public class TelaPrincipal extends AppCompatActivity {
                     }else if (tipoUsuEmail.equals("CONSUMIDOR")){
                         getMenuInflater().inflate(R.menu.menu_comprador,menu1);
                     }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+              ;
 
         return true;
     }
@@ -95,5 +89,6 @@ public class TelaPrincipal extends AppCompatActivity {
     private void AbrirTelaCadProduto() {
         Intent intent = new Intent(this,CadastroProduto.class);
         startActivity(intent);
+        finish();
     }
 }

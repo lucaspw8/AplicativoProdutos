@@ -22,7 +22,7 @@
         <activity android:name=".CadastroUsuario" />
         <activity android:name=".TelaPrincipal" />
         <activity android:name=".CadastroEmpresaActivity" />
-
+        <activity android:name=".EmpresaPrincipalActivity"></activity>
     </application>
 
 </manifest>
