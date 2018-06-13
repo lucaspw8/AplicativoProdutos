@@ -135,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
                                 //Verifica se existe alguma empresa
                                 if (dataSnapshot.hasChildren()) {
                                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                        AbrirTelaPrincipal();
+                                        finish();
+                                        Intent intent = new Intent(MainActivity.this,EmpresaPrincipalActivity.class);
+                                        startActivity(intent);
+
 
                                     }
                                     //Não possui empresa

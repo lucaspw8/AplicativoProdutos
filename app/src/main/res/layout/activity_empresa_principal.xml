@@ -16,4 +16,16 @@
         android:textSize="18sp"
         android:textColor="@color/CorPreta"/>
 
+    <TextView
+        android:id="@+id/txtqtdProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtTituloEmpresa"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="Quantidade de prod" />
+
 </RelativeLayout>
