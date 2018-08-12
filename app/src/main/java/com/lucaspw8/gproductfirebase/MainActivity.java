@@ -22,8 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.Classes.Usuario;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
+import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.Preferencias;
 
 public class MainActivity extends AppCompatActivity {
@@ -132,10 +134,23 @@ public class MainActivity extends AppCompatActivity {
                                 //Verifica se existe alguma empresa
                                 if (dataSnapshot.hasChildren()) {
                                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                        finish();
+                                        //Salvando os dados em um objeto Empresa
+                                        Empresa empresa =  new Empresa();
+                                        empresa.setNome(postSnapshot.child("nome").getValue().toString());
+                                        empresa.setTelefone(Integer.parseInt(postSnapshot.child("telefone").getValue().toString()));
+                                        empresa.setNumero(Integer.parseInt( postSnapshot.child("numero").getValue().toString()));
+                                        empresa.setRua(postSnapshot.child("rua").getValue().toString());
+                                        empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
+                                        empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
+
+                                        //Salvando no SharedPreferencias de Empresa
+                                        EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(MainActivity.this);
+                                        empresaPreferencias.salvarEmpresa(empresa);
+
+                                        //Abrindo tela de empresa
                                         Intent intent = new Intent(MainActivity.this,EmpresaPrincipalActivity.class);
                                         startActivity(intent);
-
+                                        finish();
 
                                     }
                                     //Não possui empresa
