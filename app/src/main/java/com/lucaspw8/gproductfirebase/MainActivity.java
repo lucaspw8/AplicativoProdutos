@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private Usuario usuario;
     private TextView novaConta;
-    private String tipoUsuEmail;
 
 
     @Override
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         senha = (EditText) findViewById(R.id.edtSenhaLogin);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         novaConta = (TextView)findViewById(R.id.txtCrieConta);
-
+        usuario = new Usuario();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
 
@@ -58,12 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (!email.getText().toString().equals("") && !senha.getText().toString().equals("")) {
-                        usuario = new Usuario();
+
                         usuario.setEmail(email.getText().toString());
                         usuario.setSenha(senha.getText().toString());
-
-                        Preferencias preferencias = new Preferencias(MainActivity.this);
-                        preferencias.salvarUsu(usuario.getEmail(),usuario.getSenha());
                         validarlogin();
                     } else {
                         Toast.makeText(MainActivity.this, "Preencha os campos", Toast.LENGTH_SHORT).show();
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void validarlogin(){
         autenticacao = ConfiguracaoFirebase.getFirebaseAuth();
-        autenticacao.signInWithEmailAndPassword(usuario.getEmail().toString(),usuario.getSenha().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        autenticacao.signInWithEmailAndPassword(usuario.getEmail(),usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -115,21 +111,22 @@ public class MainActivity extends AppCompatActivity {
     private void tipoUsuario(){
 
         //Recebendo email do usuario logado no momento
-        final String email =  FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        usuario.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         //Buscando usuario cujo email é igual o email do usuario logado no momento
-        referenceFirebase.child("usuarios").orderByChild("email").equalTo(email).addValueEventListener(new ValueEventListener() {
+        referenceFirebase.child("usuarios").orderByChild("email").equalTo(usuario.getEmail()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    tipoUsuEmail = postSnapshot.child("tipoUsuario").getValue().toString();
+                    usuario.setTipoUsuario(postSnapshot.child("tipoUsuario").getValue().toString());
+                    usuario.setNome(postSnapshot.child("nome").getValue().toString());
                     //Salvando nas preferencias de usuario
                     Preferencias preferencias = new Preferencias(MainActivity.this);
-                    preferencias.salvarTipoUsu(tipoUsuEmail);
+                    preferencias.salvarUsu(usuario);
 
-                    if (tipoUsuEmail.equals("VENDEDOR")) {
+                    if (usuario.getTipoUsuario().equals("VENDEDOR")) {
                                             //Tipo Vendedor
                         //Buscando empresa do Vendedor
-                        referenceFirebase.child("empresa").orderByChild("emailDono").equalTo(email).addValueEventListener(new ValueEventListener() {
+                        referenceFirebase.child("empresa").orderByChild("emailDono").equalTo(usuario.getEmail()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //Verifica se existe alguma empresa
@@ -156,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         });
 
 
-                    } else if (tipoUsuEmail.equals("CONSUMIDOR")) {
+                    } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
                         AbrirTelaPrincipal();
                     }

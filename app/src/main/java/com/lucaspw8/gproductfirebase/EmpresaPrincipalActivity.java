@@ -65,6 +65,7 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
 
     private void deslogar() {
         autenticacao.signOut();
+        preferencias.limparDados();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();
