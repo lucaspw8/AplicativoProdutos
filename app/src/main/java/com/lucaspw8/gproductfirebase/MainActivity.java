@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Valida o login do usuario no FirebaseAuth
+     */
     private void validarlogin(){
         autenticacao = ConfiguracaoFirebase.getFirebaseAuth();
         autenticacao.signInWithEmailAndPassword(usuario.getEmail(),usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -97,10 +99,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Informa se o usuario ja está logado
+     * @return Boolean
+     */
     public Boolean usuarioLogado(){
-        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(usuario !=null){
+        if(FirebaseAuth.getInstance().getCurrentUser() !=null){
             return true;
         }else{
             return false;
@@ -108,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    //Responsavel por abrir a telas apos o login dependendo do tipo de usuario
+    /**
+     * Responsavel por salvar as informações do usuario e empresa para em
+     * seguida abrir a tela correspondente
+     */
     private void tipoUsuario(){
 
         //Recebendo email do usuario logado no momento

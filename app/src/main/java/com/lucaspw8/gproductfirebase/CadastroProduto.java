@@ -34,6 +34,7 @@ public class CadastroProduto extends AppCompatActivity {
 
     private EditText nomeProd;
     private EditText valorProd;
+    private EditText descricao;
     private ImageView imgProd;
     private Button btCadastrarProd;
 
@@ -52,14 +53,13 @@ public class CadastroProduto extends AppCompatActivity {
 
         nomeProd = findViewById(R.id.edtNomeProd);
         valorProd = findViewById(R.id.edtValorProd);
+        descricao = findViewById(R.id.edtDescricao);
         imgProd = findViewById(R.id.imgProduto);
         btCadastrarProd = findViewById(R.id.btnCadastrarProd);
 
         storageReference = ConfiguracaoFirebase.getStorageReference();
         preferencias = new Preferencias(CadastroProduto.this);
         carregarFotoPadrao();
-
-
 
 
         //Acão do botao de cadastrar
@@ -70,8 +70,9 @@ public class CadastroProduto extends AppCompatActivity {
                 produto = new Produto();
                 produto.setNome(nomeProd.getText().toString());
                 produto.setValor(Float.parseFloat(valorProd.getText().toString()));
+                produto.setDescricao(descricao.getText().toString());
                 produto.setEmailEmpresa(preferencias.getEmailUsu());
-                cadastrarProduto(produto);
+                cadastrarFotoProd();
             }
         });
     }
@@ -90,6 +91,9 @@ public class CadastroProduto extends AppCompatActivity {
         });
     }
 
+    /**
+     * Carrega a imagem padrão do produto
+     */
     private void carregarFotoPadrao(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         final StorageReference storageReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/gproduct-3086b.appspot.com/o/produto_sem_foto.png?alt=media&token=a4443376-8f6d-4250-a4ea-bbfbf6d082a8");
@@ -111,6 +115,12 @@ public class CadastroProduto extends AppCompatActivity {
         
     }
 
+    /**
+     * Coloca a imagem escolhida no imageView
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         final int height = 300;
@@ -145,7 +155,9 @@ public class CadastroProduto extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Toast.makeText( CadastroProduto.this,"Imagem cadastrada: "+downloadUrl,Toast.LENGTH_LONG).show();
+                produto.setImagemUrl(downloadUrl.toString());
+                cadastrarProduto(produto);
+
             }
         });
     }

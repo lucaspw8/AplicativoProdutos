@@ -41,7 +41,11 @@ public class EmpresaPreferencias {
 
         editor.commit();
     }
-    //Retorna os dados da empresa
+
+    /**
+     * Retorna os dados da empresa
+     * @return Empresa
+     */
     public Empresa getEmpresa(){
         Empresa empresa = new Empresa();
         empresa.setNome(preferences.getString(NOME_EMPRESA,null));
@@ -54,6 +58,9 @@ public class EmpresaPreferencias {
         return empresa;
     }
 
+    /**
+     * Limpa todas as informações referentes a empresa
+     */
     public void limparDados(){
         editor.putString(NOME_EMPRESA,null);
         editor.putInt(TELEFONE,-1);

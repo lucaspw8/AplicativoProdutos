@@ -51,8 +51,6 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
         menu.clear();
         this.menu1 = menu;
 
-        //Recebendo email do usuario logado atraves do SharedPreferences
-        String email = preferencias.getEmailUsu();
         menu1.clear();
 
 
@@ -69,9 +67,6 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
             AbrirTelaCadProduto();
         }else if(id == R.id.sair_vendedor){
             deslogar();
-        }
-        else if(id == R.id.sair_consumidor){
-            deslogar();
         }else if(id == R.id.empresa){
             Intent intent = new Intent(this, CadastroEmpresaActivity.class);
             startActivity(intent);
@@ -83,6 +78,7 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
     private void deslogar() {
         autenticacao.signOut();
         preferencias.limparDados();
+        empresaPreferencias.limparDados();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();
