@@ -1,11 +1,13 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -80,7 +82,7 @@ public class CadastroProduto extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        permissao();
         //Carrega a imagem da galeria
         imgProd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,5 +180,20 @@ public class CadastroProduto extends AppCompatActivity {
 
 
 
+    }
+
+    /**
+     * Pede permissão de acesso aos arquivos do celular
+     */
+    public void permissao(){
+        try {
+            int PERMISSION_ALL = 1;
+            String [] permition = {Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+            ActivityCompat.requestPermissions(this,permition,PERMISSION_ALL);
+        }catch (Exception e){
+            Toast.makeText(CadastroProduto.this,"Conceda permissao ao app "+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 }
