@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="50dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginLeft="16dp"
-    tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+    android:layout_margin="16dp"
 
+    tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/txtTitulotela"
         android:layout_width="match_parent"
@@ -18,39 +18,31 @@
         android:textAlignment="center"
         android:textSize="20sp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/edtNomeProd"
-        android:layout_centerHorizontal="true">
-
-        <ImageView
+       <ImageView
+           android:layout_marginTop="10dp"
             android:id="@+id/imgProduto"
             android:layout_width="120dp"
             android:layout_height="100dp"
-
+           android:layout_gravity="center"
             android:layout_above="@+id/edtNomeProd" />
 
-    </LinearLayout>
+
 
 
     <TextView
         android:id="@+id/txtNomeprod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="147dp"
         android:text="Nome:"
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
     <EditText
         android:id="@+id/edtNomeProd"
-        android:layout_width="249dp"
+        android:paddingHorizontal="8dp"
+        android:hint="Nome produto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNomeprod"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/txtNomeprod"
         android:inputType="textCapSentences" />
 
 
@@ -58,30 +50,23 @@
         android:id="@+id/txtValorProd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/edtNomeProd"
-
-        android:layout_marginBottom="105dp"
-        android:paddingRight="5dp"
         android:text="Valor:"
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
     <EditText
         android:id="@+id/edtValorProd"
-        android:layout_width="98dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtValorProd"
-        android:layout_centerHorizontal="true"
-        android:inputType="numberDecimal" />
+        android:paddingHorizontal="8dp"
+        android:inputType="numberDecimal"
+        android:hint="Valor produto"/>
 
 
     <TextView
         android:id="@+id/txtDescricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
         android:text="Descrição"
         android:textColor="@color/CorPreta"
         android:textSize="16sp"/>
@@ -89,21 +74,21 @@
 
     <EditText
         android:id="@+id/edtDescricao"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/txtDescricao"
-        android:ems="10"
-        android:inputType="textMultiLine|textLongMessage" />
+
+        android:paddingHorizontal="8dp"
+        android:hint="Descrição"
+        android:inputType="textCapSentences|textMultiLine"
+        android:singleLine="false" />
 
 
     <Button
         android:id="@+id/btnCadastrarProd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:text="CADASTRAR" />
 
 
-
-</RelativeLayout>
+</LinearLayout>
+</ScrollView>

@@ -3,6 +3,7 @@ package com.lucaspw8.gproductfirebase;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,7 +63,12 @@ public class CadastroProduto extends AppCompatActivity {
 
         storageReference = ConfiguracaoFirebase.getStorageReference();
         preferencias = new Preferencias(CadastroProduto.this);
+        permissao();
         carregarFotoPadrao();
+
+
+
+
 
 
         //Acão do botao de cadastrar
@@ -82,7 +89,7 @@ public class CadastroProduto extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        permissao();
+
         //Carrega a imagem da galeria
         imgProd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +105,9 @@ public class CadastroProduto extends AppCompatActivity {
      */
     private void carregarFotoPadrao(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        final StorageReference storageReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/gproduct-3086b.appspot.com/o/produto_sem_foto.png?alt=media&token=a4443376-8f6d-4250-a4ea-bbfbf6d082a8");
+        Log.d("Foto","chamou foto padrao");
+        storageReference =
+                storage.getReferenceFromUrl("gs://gproduct-3086b.appspot.com/produto_sem_foto.png");
 
         final int height = 300;
         final int width = 300;
@@ -137,8 +146,9 @@ public class CadastroProduto extends AppCompatActivity {
     }
 
     private void cadastrarFotoProd(){
-        StorageReference montaImagemReferencia = storageReference.child("fotoProduto/"+preferencias.getEmailUsu()+"/"+produto.getNome()+".jpg");
+        StorageReference montaImagemReferencia = storageReference.child("/fotoProduto/"+preferencias.getEmailUsu()+"/"+produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
+        Log.d("Diretorio",montaImagemReferencia.toString());
         imgProd.buildDrawingCache();
         Bitmap bitmap = imgProd.getDrawingCache();
         ByteArrayOutputStream byteArray =  new ByteArrayOutputStream();
@@ -183,17 +193,22 @@ public class CadastroProduto extends AppCompatActivity {
     }
 
     /**
-     * Pede permissão de acesso aos arquivos do celular
+     * Pede permissão de acesso a galeria do celular
      */
     public void permissao(){
-        try {
             int PERMISSION_ALL = 1;
             String [] permition = {Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
             ActivityCompat.requestPermissions(this,permition,PERMISSION_ALL);
-        }catch (Exception e){
-            Toast.makeText(CadastroProduto.this,"Conceda permissao ao app "+e.getMessage(),Toast.LENGTH_LONG).show();
-        }
+
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        Log.d("Mudou de orientação","Agora foi");
+    }
+
 }
