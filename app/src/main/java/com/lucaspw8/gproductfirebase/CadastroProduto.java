@@ -2,6 +2,7 @@ package com.lucaspw8.gproductfirebase;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -18,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +39,11 @@ import java.io.ByteArrayOutputStream;
 
 public class CadastroProduto extends AppCompatActivity {
 
-    private EditText nomeProd;
-    private EditText valorProd;
-    private EditText descricao;
+    private BootstrapEditText nomeProd;
+    private BootstrapEditText valorProd;
+    private BootstrapEditText descricao;
     private ImageView imgProd;
-    private Button btCadastrarProd;
+    private BootstrapButton btCadastrarProd;
 
     private FirebaseAuth autenticacao;
     private FirebaseDatabase database;
@@ -49,6 +52,8 @@ public class CadastroProduto extends AppCompatActivity {
 
     Preferencias preferencias;
     private Produto produto;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,7 @@ public class CadastroProduto extends AppCompatActivity {
         storageReference = ConfiguracaoFirebase.getStorageReference();
         preferencias = new Preferencias(CadastroProduto.this);
         permissao();
-        carregarFotoPadrao();
+
 
 
 
@@ -81,6 +86,9 @@ public class CadastroProduto extends AppCompatActivity {
                 produto.setValor(Float.parseFloat(valorProd.getText().toString()));
                 produto.setDescricao(descricao.getText().toString());
                 produto.setEmailEmpresa(preferencias.getEmailUsu());
+                btCadastrarProd.setClickable(false);
+                progressDialog = ProgressDialog.show(CadastroProduto.this, "Aguarde.",
+                        "Cadastrando Produto..!", true);
                 cadastrarFotoProd();
             }
         });
@@ -94,8 +102,8 @@ public class CadastroProduto extends AppCompatActivity {
         imgProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(Intent.createChooser(intent,"Selecione uma imagem!"),123);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(Intent.createChooser(intent,"Complete a ação usando"),123);
             }
         });
     }
@@ -134,8 +142,8 @@ public class CadastroProduto extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final int height = 300;
-        final int width = 300;
+        final int height = 500;
+        final int width = 500;
 
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == 123) {
@@ -146,7 +154,7 @@ public class CadastroProduto extends AppCompatActivity {
     }
 
     private void cadastrarFotoProd(){
-        StorageReference montaImagemReferencia = storageReference.child("/fotoProduto/"+preferencias.getEmailUsu()+"/"+produto.getNome()+".jpg");
+        StorageReference montaImagemReferencia = storageReference.child("fotoProduto/"+preferencias.getEmailUsu()+"/"+produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
         Log.d("Diretorio",montaImagemReferencia.toString());
         imgProd.buildDrawingCache();
@@ -182,9 +190,14 @@ public class CadastroProduto extends AppCompatActivity {
             reference = ConfiguracaoFirebase.getFirebase().child("produto");
             reference.push().setValue(produto);
             Toast.makeText( CadastroProduto.this,"Produto cadastrado com sucesso",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CadastroProduto.this,EmpresaPrincipalActivity.class);
-            startActivity(intent);
+            progressDialog.dismiss();
+            nomeProd.setText("");
+            valorProd.setText("");
+            descricao.setText("");
+            imgProd.clearColorFilter();
+
         }catch (Exception e){
+            progressDialog.dismiss();
             Toast.makeText( CadastroProduto.this,"Erro: "+e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
@@ -197,8 +210,7 @@ public class CadastroProduto extends AppCompatActivity {
      */
     public void permissao(){
             int PERMISSION_ALL = 1;
-            String [] permition = {Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            String [] permition = {Manifest.permission.READ_EXTERNAL_STORAGE};
 
             ActivityCompat.requestPermissions(this,permition,PERMISSION_ALL);
 
@@ -208,7 +220,6 @@ public class CadastroProduto extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        Log.d("Mudou de orientação","Agora foi");
     }
 
 }

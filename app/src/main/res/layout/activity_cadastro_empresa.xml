@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_margin="16dp"
@@ -31,29 +35,36 @@
 
 
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtNomeEmpresa"
         android:layout_width="match_parent"
+        android:hint="Nome..."
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
-        android:layout_toRightOf="@+id/txtNomeEmpresa" />
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"
+        android:inputType="textCapSentences"  />
 
 
     <TextView
         android:id="@+id/txtTelefoneEmpresa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNomeEmpresa"
+        android:layout_marginTop="10dp"
         android:textColor="@color/CorPreta"
         android:text="Telefone:"
         android:textSize="16sp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtTelefoneEmpresa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
-        android:maxLength="11"/>
+        android:hint="Telefone..."
+        android:maxLength="11"
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -61,7 +72,8 @@
         android:text="ENDEREÇO"
         android:gravity="center"
         android:textSize="16sp"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,11 +82,15 @@
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtRua"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:hint="Rua..."
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"
        />
 
     <TextView
@@ -82,52 +98,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bairro:"
+        android:layout_marginTop="10dp"
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtBairro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="Bairro..."
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"/>
 
     <TextView
         android:id="@+id/txtNumero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Número:"
+        android:layout_marginTop="10dp"
         android:textColor="@color/CorPreta"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtNumero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number" />
+        android:inputType="number"
+        android:hint="Número..."
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"/>
 
     <TextView
         android:id="@+id/txtComplemento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="10dp"
         android:text="Complemento:"
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
 
-        <EditText
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/edtComplemento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:singleLine="false" />
+            android:hint="Complemento..."
+            android:singleLine="false"
+            app:roundedCorners="true"
+            app:bootstrapSize="lg"
+            app:bootstrapBrand="primary"/>
 
-        <Button
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btnCadastrarEmpresa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CADASTRAR" />
+            android:text="CADASTRAR"
+            app:roundedCorners="true"
+            app:bootstrapSize="lg"
+            app:bootstrapBrand="info"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
-
 </ScrollView>
+
+</LinearLayout>

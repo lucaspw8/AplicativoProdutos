@@ -18,6 +18,7 @@ public class EmpresaPreferencias {
     private final String BAIRRO = "bairro";
     private final String NUMERO = "numero";
     private final String COMPLEMENTO ="complemento";
+    private final String EMAILDONO  ="emailDono";
 
     public EmpresaPreferencias(Context contextParametro) {
         context = contextParametro;
@@ -38,6 +39,7 @@ public class EmpresaPreferencias {
         editor.putString(BAIRRO,empresa.getBairro());
         editor.putInt(NUMERO,empresa.getNumero());
         editor.putString(COMPLEMENTO,empresa.getComplemento());
+        editor.putString(EMAILDONO,empresa.getEmailDono());
 
         editor.commit();
     }
@@ -54,6 +56,7 @@ public class EmpresaPreferencias {
         empresa.setRua(preferences.getString(RUA,null));
         empresa.setNumero(preferences.getInt(NUMERO,-1));
         empresa.setComplemento(preferences.getString(COMPLEMENTO,null));
+        empresa.setEmailDono(preferences.getString(EMAILDONO,null));
 
         return empresa;
     }
@@ -68,6 +71,7 @@ public class EmpresaPreferencias {
         editor.putString(BAIRRO,null);
         editor.putInt(NUMERO,-1);
         editor.putString(COMPLEMENTO,null);
+        editor.putString(EMAILDONO,null);
         editor.commit();
     }
 }

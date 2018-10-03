@@ -1,5 +1,6 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,27 +35,29 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
     private DatabaseReference referenceFirebase;
-    private EditText email;
-    private EditText senha;
-    private Button btnLogin;
+    private BootstrapEditText email;
+    private BootstrapEditText senha;
+    private BootstrapButton btnLogin;
     private Usuario usuario;
     private TextView novaConta;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email = (EditText) findViewById(R.id.edtEmailLogin);
-        senha = (EditText) findViewById(R.id.edtSenhaLogin);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        novaConta = (TextView)findViewById(R.id.txtCrieConta);
+        email = findViewById(R.id.edtEmailLogin);
+        senha =  findViewById(R.id.edtSenhaLogin);
+        btnLogin =  findViewById(R.id.btnLogin);
+        novaConta = findViewById(R.id.txtCrieConta);
         usuario = new Usuario();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
 
         if(usuarioLogado()){
+            progressDialog = ProgressDialog.show(this, "Aguarde.",
+                    "Entrando no sistema..!", true);
            tipoUsuario();
         }else {
             btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
                         usuario.setEmail(email.getText().toString());
                         usuario.setSenha(senha.getText().toString());
+                        progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde.",
+                                "Entrando no sistema..!", true);
                         validarlogin();
                     } else {
                         Toast.makeText(MainActivity.this, "Preencha os campos", Toast.LENGTH_SHORT).show();
@@ -149,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                                         empresa.setRua(postSnapshot.child("rua").getValue().toString());
                                         empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
                                         empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
-
+                                        empresa.setEmailDono(postSnapshot.child("emailDono").getValue().toString());
                                         //Salvando no SharedPreferencias de Empresa
                                         EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(MainActivity.this);
                                         empresaPreferencias.salvarEmpresa(empresa);
@@ -158,11 +165,13 @@ public class MainActivity extends AppCompatActivity {
                                         Intent intent = new Intent(MainActivity.this,EmpresaPrincipalActivity.class);
                                         startActivity(intent);
                                         finish();
+                                        progressDialog.dismiss();
 
                                     }
                                     //Não possui empresa
                                 } else{
                                     Intent intent = new Intent(MainActivity.this,CadastroEmpresaActivity.class);
+                                    progressDialog.dismiss();
                                     startActivity(intent);
                                     finish();
                                 }
@@ -177,8 +186,10 @@ public class MainActivity extends AppCompatActivity {
 
                     } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
-                        AbrirTelaPrincipal();
-                    }
+                        Intent intent = new Intent(MainActivity.this,ListarProdutos.class);
+                        finish();
+                        startActivity(intent);
+                        }
                 }
             }
 
@@ -189,12 +200,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    private void AbrirTelaPrincipal() {
-        Intent intent = new Intent(MainActivity.this,TelaPrincipal.class);
-        startActivity(intent);
-        finish();
     }
 
 

@@ -3,8 +3,7 @@
     package="com.lucaspw8.gproductfirebase">
     //Aplicativo terá acesso a internet
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,12 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastroProduto"
+        <activity
+            android:name=".CadastroProduto"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".CadastroUsuario" />
         <activity android:name=".TelaPrincipal" />
         <activity android:name=".CadastroEmpresaActivity" />
-        <activity android:name=".EmpresaPrincipalActivity"></activity>
+        <activity android:name=".EmpresaPrincipalActivity" />
+        <activity android:name=".ListarProdutos"></activity>
     </application>
 
 </manifest>

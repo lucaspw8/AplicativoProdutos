@@ -3,13 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginLeft="16dp"
     android:gravity="center"
     tools:context="com.lucaspw8.gproductfirebase.MainActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+
+
+
+
+    <ImageView
+    android:layout_width="85dp"
+    android:layout_height="85dp"
+    android:src="@drawable/imglogin"/>
 
 <TextView
     android:layout_width="match_parent"
@@ -18,34 +34,52 @@
     android:textAlignment="center"
     android:textSize="25sp"/>
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="E-MAIL"/>
+        app:bootstrapSize="lg"
+        app:roundedCorners="true"
+        app:bootstrapBrand="primary"
+        android:layout_marginTop="10dp"
+        android:hint="E-MAIL" />
 
-    <EditText
+
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtSenhaLogin"
         android:layout_width="match_parent"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        app:roundedCorners="true"
+        android:layout_marginTop="10dp"
         android:hint="SENHA"/>
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="info"
+        app:roundedCorners="true"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        android:layout_marginTop="10dp"
         android:text="LOGIN"/>
 
-    <TextView
+    <com.beardedhen.androidbootstrap.AwesomeTextView
         android:id="@+id/txtCrieConta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="18sp"
-        android:padding="8dp"
+        android:layout_marginTop="10dp"
         android:text="Crie uma conta" />
+
+    </LinearLayout>
+</ScrollView>
 
 </LinearLayout>

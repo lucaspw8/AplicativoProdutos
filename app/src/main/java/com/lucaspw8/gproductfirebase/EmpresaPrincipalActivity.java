@@ -3,16 +3,23 @@ package com.lucaspw8.gproductfirebase;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
+import com.lucaspw8.gproductfirebase.Classes.Produto;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+
+import java.text.DecimalFormat;
 
 public class EmpresaPrincipalActivity extends AppCompatActivity {
     //Firebase
@@ -42,6 +49,27 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
 
         tituloEmpresa = findViewById(R.id.txtTituloEmpresa);
         tituloEmpresa.setText(empresa.getNome());
+
+       final DecimalFormat df = new DecimalFormat("0.##");
+
+        referenceFirebase.child("produto").orderByChild("emailEmpresa").equalTo(empresa.getEmailDono()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    Produto produto = new Produto();
+                    produto.setNome(postSnapshot.child("nome").getValue().toString());
+                    produto.setDescricao(postSnapshot.child("descricao").getValue().toString());
+                    produto.setValor(Float.parseFloat(postSnapshot.child("valor").getValue().toString()));
+                    Log.d("Produto",df.format(produto.getValor())+empresa.getEmailDono());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

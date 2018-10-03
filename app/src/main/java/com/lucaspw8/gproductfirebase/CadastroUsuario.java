@@ -113,7 +113,9 @@ public class CadastroUsuario extends AppCompatActivity {
             reference.push().setValue(usuario);
             Toast.makeText( CadastroUsuario.this,"Usuário cadastrado com sucesso",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CadastroUsuario.this,MainActivity.class);
+            finish();
             startActivity(intent);
+
             return true;
         }catch (Exception e){
             Toast.makeText(CadastroUsuario.this,"Erro ao gravar o usuario",Toast.LENGTH_LONG).show();

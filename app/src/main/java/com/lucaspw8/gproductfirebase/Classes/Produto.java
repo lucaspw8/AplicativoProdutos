@@ -8,6 +8,7 @@ import android.net.Uri;
 
 public class Produto {
     private String nome;
+    private String produtoKey;
     private float valor;
     private String descricao;
     private String emailEmpresa;
@@ -51,5 +52,13 @@ public class Produto {
 
     public void setImagemUrl(String imagemUrl) {
         this.imagemUrl = imagemUrl;
+    }
+
+    public String getProdutoKey() {
+        return produtoKey;
+    }
+
+    public void setProdutoKey(String produtoKey) {
+        this.produtoKey = produtoKey;
     }
 }

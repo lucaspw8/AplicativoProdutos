@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
-
+    android:orientation="vertical"
+    android:gravity="top"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
-<LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+        android:padding="16dp"
+    android:orientation="vertical"
+        android:layout_gravity="start">
     <TextView
         android:id="@+id/txtTitulotela"
         android:layout_width="match_parent"
@@ -19,12 +26,13 @@
         android:textSize="20sp"/>
 
        <ImageView
-           android:layout_marginTop="10dp"
             android:id="@+id/imgProduto"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+            android:layout_width="145dp"
+            android:layout_height="130dp"
+            android:src="@drawable/imgprod"
            android:layout_gravity="center"
-            android:layout_above="@+id/edtNomeProd" />
+           android:adjustViewBounds="true"
+           android:scaleType="centerCrop"/>
 
 
 
@@ -37,12 +45,15 @@
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtNomeProd"
         android:paddingHorizontal="8dp"
         android:hint="Nome produto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"
         android:inputType="textCapSentences" />
 
 
@@ -51,16 +62,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Valor:"
+        android:layout_marginTop="5dp"
         android:textColor="@color/CorPreta"
         android:textSize="16sp" />
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtValorProd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
         android:inputType="numberDecimal"
-        android:hint="Valor produto"/>
+        android:hint="Valor produto"
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"/>
 
 
     <TextView
@@ -68,11 +83,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descrição"
+        android:layout_marginTop="5dp"
         android:textColor="@color/CorPreta"
         android:textSize="16sp"/>
 
 
-    <EditText
+    <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtDescricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,15 +96,22 @@
         android:paddingHorizontal="8dp"
         android:hint="Descrição"
         android:inputType="textCapSentences|textMultiLine"
-        android:singleLine="false" />
+        android:singleLine="false"
+        app:roundedCorners="true"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="primary"/>
 
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnCadastrarProd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:bootstrapBrand="info"
+        app:bootstrapSize="lg"
+        android:layout_marginTop="10dp"
         android:text="CADASTRAR" />
 
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>
