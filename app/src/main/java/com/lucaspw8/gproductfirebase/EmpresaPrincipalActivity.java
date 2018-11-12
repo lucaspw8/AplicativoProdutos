@@ -1,11 +1,8 @@
 package com.lucaspw8.gproductfirebase;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
-import com.lucaspw8.gproductfirebase.Classes.Produto;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.Preferencias;
 
@@ -32,35 +28,34 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
     private Preferencias preferencias;
     private EmpresaPreferencias empresaPreferencias;
     private Empresa empresa;
-    private TextView tituloEmpresa;
+    private TextView txttituloEmpresa;
+    private TextView txtqtdProd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa_principal);
 
-        preferencias = new Preferencias(EmpresaPrincipalActivity.this);
-        empresaPreferencias = new EmpresaPreferencias(EmpresaPrincipalActivity.this);
+        preferencias = new Preferencias(this);
+        empresaPreferencias = new EmpresaPreferencias(this);
         //pegando referencia do Firebase
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
         //Recuperando os dados da empresa
         empresa = empresaPreferencias.getEmpresa();
 
-        tituloEmpresa = findViewById(R.id.txtTituloEmpresa);
-        tituloEmpresa.setText(empresa.getNome());
+        txttituloEmpresa = findViewById(R.id.txtTituloEmpresa);
+        txttituloEmpresa.setText(empresa.getNome());
+        txtqtdProd = findViewById(R.id.txtqtdProd);
 
        final DecimalFormat df = new DecimalFormat("0.##");
 
         referenceFirebase.child("produto").orderByChild("emailEmpresa").equalTo(empresa.getEmailDono()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    Produto produto = new Produto();
-                    produto.setNome(postSnapshot.child("nome").getValue().toString());
-                    produto.setDescricao(postSnapshot.child("descricao").getValue().toString());
-                    produto.setValor(Float.parseFloat(postSnapshot.child("valor").getValue().toString()));
-                    Log.d("Produto",df.format(produto.getValor())+empresa.getEmailDono());
+                if(dataSnapshot.exists()){
+                    txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produtos cadastrados");
                 }
             }
 
@@ -73,47 +68,17 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.clear();
-        this.menu1 = menu;
-
-        menu1.clear();
-
-
-            getMenuInflater().inflate(R.menu.menu_vendedor,menu1);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id == R.id.addProd){
-            AbrirTelaCadProduto();
-        }else if(id == R.id.sair_vendedor){
-            deslogar();
-        }else if(id == R.id.empresa){
-            Intent intent = new Intent(this, CadastroEmpresaActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void deslogar() {
         autenticacao.signOut();
         preferencias.limparDados();
         empresaPreferencias.limparDados();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
+
     }
 
     private void AbrirTelaCadProduto() {
-        Intent intent = new Intent(this,CadastroProduto.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this,CadastroProduto.class);
+        //startActivity(intent);
     }
 }

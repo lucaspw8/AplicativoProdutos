@@ -3,6 +3,7 @@ package com.lucaspw8.gproductfirebase;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,13 +21,13 @@ import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
 
 public class CadastroEmpresaActivity extends AppCompatActivity {
 
-    private EditText nomeEmpresa;
-    private EditText telefoneEmpresa;
-    private EditText ruaEmpresa;
-    private EditText bairroEmpresa;
-    private EditText numeroEmpresa;
-    private EditText complementoEmpresa;
-    private Button btnCadastrarEmpresa;
+    private BootstrapEditText nomeEmpresa;
+    private BootstrapEditText telefoneEmpresa;
+    private BootstrapEditText ruaEmpresa;
+    private BootstrapEditText bairroEmpresa;
+    private BootstrapEditText numeroEmpresa;
+    private BootstrapEditText complementoEmpresa;
+    private BootstrapButton btnCadastrarEmpresa;
     private Menu menu1;
 
     private FirebaseAuth autenticacao;
@@ -40,13 +43,13 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
-        nomeEmpresa = (EditText) findViewById(R.id.edtNomeEmpresa);
-        telefoneEmpresa = (EditText) findViewById(R.id.edtTelefoneEmpresa);
-        ruaEmpresa = (EditText) findViewById(R.id.edtRua);
-        bairroEmpresa = (EditText) findViewById(R.id.edtBairro);
-        numeroEmpresa = (EditText) findViewById(R.id.edtNumero);
-        complementoEmpresa = (EditText) findViewById(R.id.edtComplemento);
-        btnCadastrarEmpresa = (Button) findViewById(R.id.btnCadastrarEmpresa);
+        nomeEmpresa =  findViewById(R.id.edtNomeEmpresa);
+        telefoneEmpresa =  findViewById(R.id.edtTelefoneEmpresa);
+        ruaEmpresa =  findViewById(R.id.edtRua);
+        bairroEmpresa =  findViewById(R.id.edtBairro);
+        numeroEmpresa =  findViewById(R.id.edtNumero);
+        complementoEmpresa =  findViewById(R.id.edtComplemento);
+        btnCadastrarEmpresa =  findViewById(R.id.btnCadastrarEmpresa);
 
         btnCadastrarEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +58,25 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
                 //Atribui o email do usuario logado no momento
                 empresa.setEmailDono(autenticacao.getCurrentUser().getEmail());
                 empresa.setNome(nomeEmpresa.getText().toString());
-                empresa.setTelefone(Integer.parseInt(telefoneEmpresa.getText().toString()));
+
                 empresa.setRua(ruaEmpresa.getText().toString());
                 empresa.setBairro(bairroEmpresa.getText().toString());
-                empresa.setNumero(Integer.parseInt(numeroEmpresa.getText().toString()));
+                //verifica se o campo de numero n esta vazio para evitar erros na hr da conversão
+
+                Log.d("Numero",numeroEmpresa.getText().toString());
+                Log.d("Telefone",telefoneEmpresa.getText().toString());
+                if (!numeroEmpresa.getText().toString().equals("") && !telefoneEmpresa.getText().toString().equals("")){
+                    Log.d("IF","Entrou no if");
+                    empresa.setNumero(Integer.parseInt(numeroEmpresa.getText().toString()));
+                    empresa.setTelefone(Integer.parseInt(telefoneEmpresa.getText().toString()));
+                }
                 empresa.setComplemento(complementoEmpresa.getText().toString());
-                cadastarEmpresa(empresa);
+                if(!empresa.getNome().equals("")){
+                    cadastarEmpresa(empresa);
+                }else{
+                    Toast.makeText(CadastroEmpresaActivity.this,"Imforme ao menos um nome para a empresa",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

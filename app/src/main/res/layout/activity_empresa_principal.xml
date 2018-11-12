@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:orientation="vertical"
     tools:context="com.lucaspw8.gproductfirebase.EmpresaPrincipalActivity">
 
     <TextView
@@ -20,12 +19,9 @@
         android:id="@+id/txtqtdProd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtTituloEmpresa"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:text="Quantidade de prod" />
 
-</RelativeLayout>
+</LinearLayout>

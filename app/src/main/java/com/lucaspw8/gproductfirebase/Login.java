@@ -1,15 +1,14 @@
 package com.lucaspw8.gproductfirebase;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +29,11 @@ import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.Preferencias;
 
-public class MainActivity extends AppCompatActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class Login extends Fragment {
 
     private FirebaseAuth autenticacao;
     private DatabaseReference referenceFirebase;
@@ -40,25 +42,33 @@ public class MainActivity extends AppCompatActivity {
     private BootstrapButton btnLogin;
     private Usuario usuario;
     private TextView novaConta;
+    private MenuLateral menuLateral;
     private ProgressDialog progressDialog;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public Login() {
+        // Required empty public constructor
+    }
 
-        email = findViewById(R.id.edtEmailLogin);
-        senha =  findViewById(R.id.edtSenhaLogin);
-        btnLogin =  findViewById(R.id.btnLogin);
-        novaConta = findViewById(R.id.txtCrieConta);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        //Obter a view do fragmento
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        email = view.findViewById(R.id.edtEmailLogin2);
+        senha =  view.findViewById(R.id.edtSenhaLogin2);
+        btnLogin =  view.findViewById(R.id.btnLogin2);
+        novaConta = view.findViewById(R.id.txtCrieConta2);
         usuario = new Usuario();
+        menuLateral = new MenuLateral();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
 
         if(usuarioLogado()){
-            progressDialog = ProgressDialog.show(this, "Aguarde.",
+            progressDialog = ProgressDialog.show(getActivity(), "Aguarde.",
                     "Entrando no sistema..!", true);
-           tipoUsuario();
+            tipoUsuario();
         }else {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
                         usuario.setEmail(email.getText().toString());
                         usuario.setSenha(senha.getText().toString());
-                        progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde.",
+                        progressDialog = ProgressDialog.show(getActivity(), "Aguarde.",
                                 "Entrando no sistema..!", true);
                         validarlogin();
                     } else {
-                        Toast.makeText(MainActivity.this, "Preencha os campos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Preencha os campos", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -81,12 +91,17 @@ public class MainActivity extends AppCompatActivity {
         novaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,CadastroUsuario.class);
+                Intent intent = new Intent(getActivity(),CadastroUsuario.class);
                 startActivity(intent);
             }
         });
 
+
+        // Inflate the layout for this fragment
+        return view;
     }
+
+
 
     /**
      * Valida o login do usuario no FirebaseAuth
@@ -98,13 +113,15 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     tipoUsuario();
-                    Toast.makeText(MainActivity.this,"Login feito com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(),"Login feito com sucesso!", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(MainActivity.this,"Usuário ou senha invalidos", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(getActivity().getApplicationContext(),"Usuário ou senha invalidos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 
     /**
      * Informa se o usuario ja está logado
@@ -119,12 +136,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Responsavel por salvar as informações do usuario e empresa para em
      * seguida abrir a tela correspondente
      */
-
     private void tipoUsuario(){
 
         //Recebendo email do usuario logado no momento
@@ -137,11 +152,11 @@ public class MainActivity extends AppCompatActivity {
                     usuario.setTipoUsuario(postSnapshot.child("tipoUsuario").getValue().toString());
                     usuario.setNome(postSnapshot.child("nome").getValue().toString());
                     //Salvando nas preferencias de usuario
-                    Preferencias preferencias = new Preferencias(MainActivity.this);
+                    Preferencias preferencias = new Preferencias(getContext());
                     preferencias.salvarUsu(usuario);
 
                     if (usuario.getTipoUsuario().equals("VENDEDOR")) {
-                                            //Tipo Vendedor
+                        //Tipo Vendedor
                         //Buscando empresa do Vendedor
                         referenceFirebase.child("empresa").orderByChild("emailDono").equalTo(usuario.getEmail()).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -159,23 +174,24 @@ public class MainActivity extends AppCompatActivity {
                                         empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
                                         empresa.setEmailDono(postSnapshot.child("emailDono").getValue().toString());
                                         //Salvando no SharedPreferencias de Empresa
-                                        EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(MainActivity.this);
+                                        EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(getContext());
                                         empresaPreferencias.salvarEmpresa(empresa);
 
                                         //Abrindo tela de empresa
-                                        Intent intent = new Intent(MainActivity.this,EmpresaPrincipalActivity.class);
-                                        progressDialog.dismiss();
-                                        startActivity(intent);
-                                        finish();
 
+                                        //Intent intent = new Intent(getActivity().getApplicationContext(),EmpresaPrincipalActivity.class);
+                                        //startActivity(intent);
+
+                                        progressDialog.dismiss();
+                                        //menuLateral.abrirEmpresaPrincipalActivity();
 
                                     }
                                     //Não possui empresa
                                 } else{
-                                    Intent intent = new Intent(MainActivity.this,CadastroEmpresaActivity.class);
+                                    Intent intent = new Intent(getActivity().getApplicationContext(),CadastroEmpresaActivity.class);
                                     progressDialog.dismiss();
                                     startActivity(intent);
-                                    finish();
+
                                 }
 
                             }
@@ -188,10 +204,9 @@ public class MainActivity extends AppCompatActivity {
 
                     } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
-                        Intent intent = new Intent(MainActivity.this,ListarProdutos.class);
-                        finish();
+                        Intent intent = new Intent(getActivity().getApplicationContext(),ListarProdutos.class);
                         startActivity(intent);
-                        }
+                    }
                 }
             }
 
@@ -206,5 +221,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-
-
