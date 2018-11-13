@@ -1,14 +1,13 @@
 package com.lucaspw8.gproductfirebase;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,12 +33,19 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
     private DatabaseReference referenceFirebase;
+
     private BootstrapEditText email;
     private BootstrapEditText senha;
     private BootstrapButton btnLogin;
+    private TextView txtnovaConta;
+    private TextView txtrecuperarSenha;
+
     private Usuario usuario;
-    private TextView novaConta;
     private ProgressDialog progressDialog;
+    private AlertDialog alerta;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +55,13 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.edtEmailLogin);
         senha =  findViewById(R.id.edtSenhaLogin);
         btnLogin =  findViewById(R.id.btnLogin);
-        novaConta = findViewById(R.id.txtCrieConta);
+        txtnovaConta = findViewById(R.id.txtCrieConta);
+        txtrecuperarSenha = findViewById(R.id.txtRecuperarSenha);
         usuario = new Usuario();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
+        final EditText edtEmailSenha =  new EditText(MainActivity.this);
+        edtEmailSenha.setHint("exemplo@exemplo.com");
 
         if(usuarioLogado()){
             progressDialog = ProgressDialog.show(this, "Aguarde.",
@@ -78,11 +86,71 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Chamar tela de cadastro de usuario
-        novaConta.setOnClickListener(new View.OnClickListener() {
+        txtnovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,CadastroUsuario.class);
                 startActivity(intent);
+            }
+        });
+        //Recuperar senha
+        txtrecuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
+                builder.setCancelable(false);
+                builder.setTitle("Recuperar senha");
+                builder.setMessage("Informe seu email");
+                builder.setView(edtEmailSenha);
+
+                if(!edtEmailSenha.getText().equals("")){
+                    builder.setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //recuperando instancia da autenticação
+                            autenticacao = FirebaseAuth.getInstance();
+                            String emailRecuperar = edtEmailSenha.getText().toString();
+
+                            autenticacao.sendPasswordResetEmail(emailRecuperar).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(MainActivity.this,"Em instantes você receberá um email",
+                                                Toast.LENGTH_LONG).show();
+
+                                        Intent intent = getIntent();
+                                        finish();
+                                        startActivity(intent);
+                                    }else{
+                                        Toast.makeText(MainActivity.this,"Falha ao resetar senha",
+                                                Toast.LENGTH_LONG).show();
+
+                                        Intent intent = getIntent();
+                                        finish();
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+
+
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    Toast.makeText(MainActivity.this,"Preencha o campo email",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                alerta = builder.create();
+                alerta.show();
             }
         });
 
@@ -101,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Login feito com sucesso!", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.this,"Usuário ou senha invalidos", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             }
         });

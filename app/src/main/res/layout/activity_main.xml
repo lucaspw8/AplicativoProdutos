@@ -71,13 +71,23 @@
         android:layout_marginTop="10dp"
         android:text="LOGIN"/>
 
-    <com.beardedhen.androidbootstrap.AwesomeTextView
-        android:id="@+id/txtCrieConta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="10dp"
-        android:text="Crie uma conta" />
+        <TextView
+            android:id="@+id/txtRecuperarSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:text="Esqueci minha senha!"/>
+
+
+        <TextView
+            android:id="@+id/txtCrieConta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:text="Não tem cadastro? Clique aqui"/>
 
     </LinearLayout>
 </ScrollView>

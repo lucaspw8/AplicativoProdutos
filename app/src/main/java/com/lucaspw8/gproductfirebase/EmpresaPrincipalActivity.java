@@ -56,6 +56,8 @@ public class EmpresaPrincipalActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produtos cadastrados");
+                }else{
+                    txtqtdProd.setText("Não há produtos cadastrados");
                 }
             }
 
