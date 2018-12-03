@@ -154,7 +154,9 @@ public class CadastroProduto extends AppCompatActivity {
     }
 
     private void cadastrarFotoProd(){
-        StorageReference montaImagemReferencia = storageReference.child("fotoProduto/"+preferencias.getEmailUsu()+"/"+produto.getNome()+".jpg");
+        StorageReference montaImagemReferencia = storageReference
+                .child("fotoProduto/"+preferencias.getEmailUsu()+"/"
+                        +produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
         Log.d("Diretorio",montaImagemReferencia.toString());
         imgProd.buildDrawingCache();

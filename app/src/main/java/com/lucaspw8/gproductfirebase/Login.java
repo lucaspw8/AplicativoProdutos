@@ -52,7 +52,7 @@ public class Login extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         //Obter a view do fragmento
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 

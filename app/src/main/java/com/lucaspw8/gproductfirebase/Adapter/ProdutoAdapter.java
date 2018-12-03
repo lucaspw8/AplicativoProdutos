@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ProdutoAdapter.ViewHolder holder, final int position) {
         final Produto item = mprodutoList.get(position);
 
-        produtos = new ArrayList<>();
+       produtos = new ArrayList<>();
 
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
         referenciaFirebase.child("produto").orderByChild("nome").addValueEventListener(new ValueEventListener() {
@@ -87,7 +88,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         holder.linearLayoutProdutosLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("Produto",""+produtos.get(position).getNome());
             }
         });
 

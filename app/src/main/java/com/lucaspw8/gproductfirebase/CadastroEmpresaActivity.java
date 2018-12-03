@@ -86,7 +86,7 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             referenceFirebase = ConfiguracaoFirebase.getFirebase().child("empresa");
             referenceFirebase.push().setValue(empresa);
             Toast.makeText( CadastroEmpresaActivity.this,"Empresa cadastrada com sucesso",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CadastroEmpresaActivity.this,TelaPrincipal.class);
+            Intent intent = new Intent(CadastroEmpresaActivity.this,EmpresaPrincipalActivity.class);
             startActivity(intent);
 
         }catch (Exception e){

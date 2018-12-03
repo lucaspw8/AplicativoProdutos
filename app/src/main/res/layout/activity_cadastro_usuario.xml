@@ -7,137 +7,158 @@
 
     android:orientation="vertical"
     tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <LinearLayout
-        android:padding="16dp"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/txtTitulotela"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="NOVO USUARIO"
-        android:textAlignment="center"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:id="@+id/txtNomeUsu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/CorPreta"
-        android:text="Nome:"
-        android:textSize="16sp" />
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/edtNomeUsu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Seu nome..."
-        app:roundedCorners="true"
-        android:inputType="textCapSentences"
-        app:bootstrapSize="lg"
-        app:bootstrapBrand="primary"
-        />
-
-
-    <TextView
-        android:id="@+id/txtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/CorPreta"
-        android:text="E-mail:"
-        android:textSize="16sp" />
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/edtEmailUsu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bootstrapSize="lg"
-        app:roundedCorners="true"
-        android:hint="Seu e-mail para login..."
-        app:bootstrapBrand="primary"
-        android:inputType="textEmailAddress"/>
-
-
-    <TextView
-        android:id="@+id/txtSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/CorPreta"
-        android:text="Senha:"
-        android:textSize="16sp" />
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/edtSenhaUsu"
-        app:bootstrapSize="lg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Insira sua senha..."
-        app:bootstrapBrand="primary"
-        app:roundedCorners="true"
-        android:inputType="textPassword"/>
-
-    <TextView
-        android:id="@+id/txtRepetirSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtSenha"
-
-        android:textColor="@color/CorPreta"
-        android:text="Repetir:"
-        android:textSize="16sp" />
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/edtRepetirSenhaUsu"
-        app:bootstrapSize="lg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Repita a senha..."
-        app:roundedCorners="true"
-        app:bootstrapBrand="primary"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/txtTipoUsu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/CorPreta"
-        android:text="Sou um usuario:"
-        android:textSize="16sp" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/radioConsumidor"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="CONSUMIDOR"/>
-
-        <RadioButton
-            android:id="@+id/radioVendedor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VENDEDOR"/>
-    </RadioGroup>
+            android:orientation="vertical"
+            android:padding="16dp">
 
 
+            <TextView
+                android:id="@+id/txtTitulotela"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOVO USUARIO"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btnCadastrarUsu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CADASTRAR" />
+            <TextView
+                android:id="@+id/txtNomeUsu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
 
-    </LinearLayout>
-</ScrollView>
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtNomeUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textCapSentences"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="lg"
+                app:roundedCorners="true" />
+
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-mail:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtEmailUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Seu e-mail para login..."
+                android:inputType="textEmailAddress"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="lg"
+                app:roundedCorners="true" />
+
+
+            <TextView
+                android:id="@+id/txtSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Senha:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/edtSenhaUsu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="lg"
+                    app:roundedCorners="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtRepetirSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtSenha"
+
+                android:text="Repetir:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/edtRepetirSenhaUsu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="lg"
+                    app:roundedCorners="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtTipoUsu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sou um usuario:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioConsumidor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="CONSUMIDOR" />
+
+                <RadioButton
+                    android:id="@+id/radioVendedor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VENDEDOR" />
+            </RadioGroup>
+
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnCadastrarUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CADASTRAR"
+                android:textSize="20sp"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

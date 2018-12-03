@@ -2,14 +2,18 @@ package com.lucaspw8.gproductfirebase;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,11 +34,13 @@ public class CadastroUsuario extends AppCompatActivity {
     private EditText repetirSenha;
     private RadioButton rbconsumidor;
     private RadioButton rbvendedor;
-    private Button btnCadastrar;
+    private BootstrapButton btnCadastrar;
 
     private FirebaseAuth autenticacao;
     private FirebaseDatabase database;
     private DatabaseReference reference;
+
+    private ActionBar actionBar;
 
     private Usuario usuario;
     @Override
@@ -42,13 +48,13 @@ public class CadastroUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_usuario);
 
-        nome = (EditText) findViewById(R.id.edtNomeUsu);
-        email =(EditText) findViewById(R.id.edtEmailUsu);
-        senha =(EditText) findViewById(R.id.edtSenhaUsu);
-        repetirSenha = (EditText)findViewById(R.id.edtRepetirSenhaUsu);
-        rbconsumidor = (RadioButton)findViewById(R.id.radioConsumidor);
-        rbvendedor =(RadioButton)findViewById(R.id.radioVendedor);
-        btnCadastrar = (Button)findViewById(R.id.btnCadastrarUsu);
+        nome =  findViewById(R.id.edtNomeUsu);
+        email = findViewById(R.id.edtEmailUsu);
+        senha = findViewById(R.id.edtSenhaUsu);
+        repetirSenha = findViewById(R.id.edtRepetirSenhaUsu);
+        rbconsumidor = findViewById(R.id.radioConsumidor);
+        rbvendedor = findViewById(R.id.radioVendedor);
+        btnCadastrar = findViewById(R.id.btnCadastrarUsu);
 
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +81,16 @@ public class CadastroUsuario extends AppCompatActivity {
                 }
             }
         });
+
+        try {
+            actionBar = getSupportActionBar();
+            //Adiciona o botao de voltar no action bar
+            actionBar.setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+            //getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
+            //getSupportActionBar().setTitle("Seu titulo aqui");
+        }catch (NullPointerException e){
+            Log.w("Erro",e.getMessage());
+        }
     }
 
 
@@ -122,6 +138,16 @@ public class CadastroUsuario extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

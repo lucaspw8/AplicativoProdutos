@@ -7,7 +7,7 @@
 
 <LinearLayout
     android:id="@+id/linearLayoutProdutosLista"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -47,17 +47,19 @@
             android:textSize="15dp"
             android:text="Descrição"/>
 
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_ico_delete"/>
     </LinearLayout>
 
-</LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/bootstrap_gray"
-        android:focusable="false"/>
+</LinearLayout>
 
 
 </LinearLayout>

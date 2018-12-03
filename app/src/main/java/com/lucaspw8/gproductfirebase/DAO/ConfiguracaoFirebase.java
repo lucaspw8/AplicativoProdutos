@@ -11,15 +11,17 @@ import com.google.firebase.storage.StorageReference;
  */
 
 public class ConfiguracaoFirebase {
-
+    private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference referenciaFirebase;
     private static FirebaseAuth autenticacao;
     private static FirebaseStorage storage;
     private static StorageReference storageReference;
 
     public static DatabaseReference getFirebase(){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
         if(referenciaFirebase == null){
-            referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+            referenciaFirebase = firebaseDatabase.getReference();
         }
 
         return referenciaFirebase;

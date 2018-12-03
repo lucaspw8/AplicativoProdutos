@@ -1,12 +1,13 @@
 package com.lucaspw8.gproductfirebase.Classes;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 /**
  * Created by lucas on 16/04/2018.
  */
 
-public class Produto {
+public class Produto{
     private String nome;
     private String produtoKey;
     private float valor;
@@ -61,4 +62,5 @@ public class Produto {
     public void setProdutoKey(String produtoKey) {
         this.produtoKey = produtoKey;
     }
+
 }

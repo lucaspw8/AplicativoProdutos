@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private AlertDialog alerta;
 
+    private ActionBar actionBar;
+
 
 
 
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         txtrecuperarSenha = findViewById(R.id.txtRecuperarSenha);
         usuario = new Usuario();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
+
 
         final EditText edtEmailSenha =  new EditText(MainActivity.this);
         edtEmailSenha.setHint("exemplo@exemplo.com");
@@ -154,6 +160,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        try {
+            actionBar = getSupportActionBar();
+            //Adiciona o botao de voltar no action bar
+            actionBar.setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+            //getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
+            //getSupportActionBar().setTitle("Seu titulo aqui");
+        }catch (NullPointerException e){
+            Log.w("Erro",e.getMessage());
+        }
+
+
     }
 
     /**
@@ -232,14 +249,14 @@ public class MainActivity extends AppCompatActivity {
                                         empresaPreferencias.salvarEmpresa(empresa);
 
                                         //Abrindo tela de empresa
-                                        Intent intent = new Intent(MainActivity.this,EmpresaPrincipalActivity.class);
+                                        Intent intent = new Intent(MainActivity.this,MenuLateral.class);
                                         progressDialog.dismiss();
                                         startActivity(intent);
                                         finish();
 
 
                                     }
-                                    //Não possui empresa
+                                    //Não possui empresa entao abrira tela para cadastrar a empresa
                                 } else{
                                     Intent intent = new Intent(MainActivity.this,CadastroEmpresaActivity.class);
                                     progressDialog.dismiss();
@@ -254,10 +271,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-
+                        //Se usuario for consumidor abre tela referente a consumidor
                     } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
-                        Intent intent = new Intent(MainActivity.this,ListarProdutos.class);
+                        Intent intent = new Intent(MainActivity.this,MenuLateral.class);
                         finish();
                         startActivity(intent);
                         }
@@ -273,7 +290,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 }
 
 
