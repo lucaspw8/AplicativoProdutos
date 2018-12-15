@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/layout_margin">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Resetar senha"
+    android:textSize="20sp"
+    android:shadowColor="@color/bootstrap_gray_dark"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Informe o email para resetar sua senha"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/emailRecuperar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="exemplo@exemplo.com"
+        app:bootstrapSize="md"
+        app:roundedCorners="true"
+        app:bootstrapBrand="primary"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnCancelarRecuperarSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Cancelar"
+            app:bootstrapBrand="warning"
+            app:bootstrapSize="md"
+            app:roundedCorners="true" />
+
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnRecuperarSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+
+
+            android:text="Resetar"
+            app:bootstrapSize="md"
+            app:roundedCorners="true"
+            app:bootstrapBrand="info"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

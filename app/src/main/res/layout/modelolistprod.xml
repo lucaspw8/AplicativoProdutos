@@ -49,14 +49,6 @@
 
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="50dp"
-        android:layout_height="match_parent">
-        <ImageButton
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_ico_delete"/>
-    </LinearLayout>
 
 
 </LinearLayout>

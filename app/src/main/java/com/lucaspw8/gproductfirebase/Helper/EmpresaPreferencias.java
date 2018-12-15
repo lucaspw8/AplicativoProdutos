@@ -34,7 +34,7 @@ public class EmpresaPreferencias {
     public void salvarEmpresa(Empresa empresa){
         //Salva dentro do arquivo de preferencias
         editor.putString(NOME_EMPRESA,empresa.getNome());
-        editor.putInt(TELEFONE,empresa.getTelefone());
+        editor.putString(TELEFONE,empresa.getTelefone());
         editor.putString(RUA,empresa.getRua());
         editor.putString(BAIRRO,empresa.getBairro());
         editor.putInt(NUMERO,empresa.getNumero());
@@ -52,7 +52,7 @@ public class EmpresaPreferencias {
         Empresa empresa = new Empresa();
         empresa.setNome(preferences.getString(NOME_EMPRESA,null));
         empresa.setBairro(preferences.getString(BAIRRO,null));
-        empresa.setTelefone(preferences.getInt(TELEFONE,-1));
+        empresa.setTelefone(preferences.getString(TELEFONE,null));
         empresa.setRua(preferences.getString(RUA,null));
         empresa.setNumero(preferences.getInt(NUMERO,-1));
         empresa.setComplemento(preferences.getString(COMPLEMENTO,null));
@@ -66,7 +66,7 @@ public class EmpresaPreferencias {
      */
     public void limparDados(){
         editor.putString(NOME_EMPRESA,null);
-        editor.putInt(TELEFONE,-1);
+        editor.putString(TELEFONE,null);
         editor.putString(RUA,null);
         editor.putString(BAIRRO,null);
         editor.putInt(NUMERO,-1);

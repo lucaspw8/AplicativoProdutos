@@ -12,7 +12,15 @@ public class Usuario {
     private String Email;
     private String Senha;
     private String TipoUsuario;
+    private String keyUsuario;
 
+    public String getKeyUsuario() {
+        return keyUsuario;
+    }
+
+    public void setKeyUsuario(String keyUsuario) {
+        this.keyUsuario = keyUsuario;
+    }
 
     public String getNome() {
         return Nome;

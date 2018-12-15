@@ -1,5 +1,6 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -103,60 +104,7 @@ public class MainActivity extends AppCompatActivity {
         txtrecuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                builder.setCancelable(false);
-                builder.setTitle("Recuperar senha");
-                builder.setMessage("Informe seu email");
-                builder.setView(edtEmailSenha);
-
-                if(!edtEmailSenha.getText().equals("")){
-                    builder.setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //recuperando instancia da autenticação
-                            autenticacao = FirebaseAuth.getInstance();
-                            String emailRecuperar = edtEmailSenha.getText().toString();
-
-                            autenticacao.sendPasswordResetEmail(emailRecuperar).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(MainActivity.this,"Em instantes você receberá um email",
-                                                Toast.LENGTH_LONG).show();
-
-                                        Intent intent = getIntent();
-                                        finish();
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(MainActivity.this,"Falha ao resetar senha",
-                                                Toast.LENGTH_LONG).show();
-
-                                        Intent intent = getIntent();
-                                        finish();
-                                        startActivity(intent);
-                                    }
-                                }
-                            });
-
-
-                        }
-                    });
-
-                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    });
-                }else{
-                    Toast.makeText(MainActivity.this,"Preencha o campo email",
-                            Toast.LENGTH_LONG).show();
-                }
-
-                alerta = builder.create();
-                alerta.show();
+             abrirDialogRecuperarSenha();
             }
         });
 
@@ -238,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                                         //Salvando os dados em um objeto Empresa
                                         Empresa empresa =  new Empresa();
                                         empresa.setNome(postSnapshot.child("nome").getValue().toString());
-                                        empresa.setTelefone(Integer.parseInt(postSnapshot.child("telefone").getValue().toString()));
+                                        empresa.setTelefone(postSnapshot.child("telefone").getValue().toString());
                                         empresa.setNumero(Integer.parseInt( postSnapshot.child("numero").getValue().toString()));
                                         empresa.setRua(postSnapshot.child("rua").getValue().toString());
                                         empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
@@ -249,9 +197,7 @@ public class MainActivity extends AppCompatActivity {
                                         empresaPreferencias.salvarEmpresa(empresa);
 
                                         //Abrindo tela de empresa
-                                        Intent intent = new Intent(MainActivity.this,MenuLateral.class);
                                         progressDialog.dismiss();
-                                        startActivity(intent);
                                         finish();
 
 
@@ -274,9 +220,7 @@ public class MainActivity extends AppCompatActivity {
                         //Se usuario for consumidor abre tela referente a consumidor
                     } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
-                        Intent intent = new Intent(MainActivity.this,MenuLateral.class);
                         finish();
-                        startActivity(intent);
                         }
                 }
             }
@@ -300,6 +244,60 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void abrirDialogRecuperarSenha(){
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.alert_recuperar_senha);
+        final BootstrapButton btResetar = dialog.findViewById(R.id.btnRecuperarSenha);
+        final BootstrapButton btCancelarRecuperarSenha = dialog.findViewById(R.id.btnCancelarRecuperarSenha);
+        final BootstrapEditText emailRecuperar = dialog.findViewById(R.id.emailRecuperar);
+
+        //Ação do botao de comfirmar exclusão
+        btResetar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                recuperarSenha(emailRecuperar.getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+        btCancelarRecuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void recuperarSenha(String email){
+        if(!email.equals("")){
+                    //recuperando instancia da autenticação
+                    autenticacao = FirebaseAuth.getInstance();
+                    autenticacao.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(MainActivity.this,"Em instantes você receberá um email",
+                                        Toast.LENGTH_LONG).show();
+
+
+                            }else{
+                                Toast.makeText(MainActivity.this,"Falha ao resetar senha",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+        }else{
+            Toast.makeText(MainActivity.this,"Preencha o campo email",
+                    Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 }
 
 

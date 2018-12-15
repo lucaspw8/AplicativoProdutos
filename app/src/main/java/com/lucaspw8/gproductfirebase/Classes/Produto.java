@@ -1,19 +1,17 @@
 package com.lucaspw8.gproductfirebase.Classes;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-
 /**
  * Created by lucas on 16/04/2018.
  */
 
 public class Produto{
     private String nome;
-    private String produtoKey;
+    private String KeyProduto;
     private float valor;
     private String descricao;
     private String emailEmpresa;
     private String imagemUrl;
+
 
     public String getEmailEmpresa() {
         return emailEmpresa;
@@ -55,12 +53,12 @@ public class Produto{
         this.imagemUrl = imagemUrl;
     }
 
-    public String getProdutoKey() {
-        return produtoKey;
+    public String getKeyProduto() {
+        return KeyProduto;
     }
 
-    public void setProdutoKey(String produtoKey) {
-        this.produtoKey = produtoKey;
+    public void setKeyProduto(String keyProduto) {
+        this.KeyProduto = keyProduto;
     }
 
 }

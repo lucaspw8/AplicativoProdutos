@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +53,12 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         complementoEmpresa =  findViewById(R.id.edtComplemento);
         btnCadastrarEmpresa =  findViewById(R.id.btnCadastrarEmpresa);
 
+        //Criando mascara para o campo de telefone
+        SimpleMaskFormatter mask = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
+        MaskTextWatcher mtw = new MaskTextWatcher(telefoneEmpresa,mask);
+        telefoneEmpresa.addTextChangedListener(mtw);
+        //Fim da mascara
+
         btnCadastrarEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,12 +71,9 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
                 empresa.setBairro(bairroEmpresa.getText().toString());
                 //verifica se o campo de numero n esta vazio para evitar erros na hr da conversão
 
-                Log.d("Numero",numeroEmpresa.getText().toString());
-                Log.d("Telefone",telefoneEmpresa.getText().toString());
                 if (!numeroEmpresa.getText().toString().equals("") && !telefoneEmpresa.getText().toString().equals("")){
-                    Log.d("IF","Entrou no if");
                     empresa.setNumero(Integer.parseInt(numeroEmpresa.getText().toString()));
-                    empresa.setTelefone(Integer.parseInt(telefoneEmpresa.getText().toString()));
+                    empresa.setTelefone(telefoneEmpresa.getText().toString());
                 }
                 empresa.setComplemento(complementoEmpresa.getText().toString());
                 if(!empresa.getNome().equals("")){
@@ -84,9 +89,12 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
     public void cadastarEmpresa(Empresa empresa){
         try {
             referenceFirebase = ConfiguracaoFirebase.getFirebase().child("empresa");
-            referenceFirebase.push().setValue(empresa);
+            String key = referenceFirebase.push().getKey();
+            empresa.setKeyEmpresa(key);
+            referenceFirebase.child(key).setValue(empresa);
             Toast.makeText( CadastroEmpresaActivity.this,"Empresa cadastrada com sucesso",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CadastroEmpresaActivity.this,EmpresaPrincipalActivity.class);
+            Intent intent = new Intent(CadastroEmpresaActivity.this,MenuLateral.class);
+            finish();
             startActivity(intent);
 
         }catch (Exception e){

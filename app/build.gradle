@@ -31,15 +31,17 @@ dependencies {
 
     implementation 'com.android.support:recyclerview-v7:26.0.0'
 
-    implementation 'com.google.firebase:firebase-core:15.0.0'
-    implementation 'com.google.firebase:firebase-auth:15.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
     //Usar o Banco de dados
-    implementation 'com.google.firebase:firebase-database:15.0.0'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
     //Armazenar dados
     implementation 'com.google.firebase:firebase-storage:15.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.beardedhen:androidbootstrap:2.3.2'
+    //Mascara para os campos
+    implementation 'com.github.rtoshiro.mflibrary:mflibrary:1.0.0'
 
 }
 

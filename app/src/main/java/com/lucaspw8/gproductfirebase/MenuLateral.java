@@ -35,6 +35,8 @@ public class MenuLateral extends AppCompatActivity
     private MenuItem menuLoginItem;
     private MenuItem menuLogout;
     private MenuItem menuTopoPesquisar;
+    private MenuItem menuContausu;
+    private MenuItem menuCadastrarProdutos;
 
 
     @Override
@@ -70,44 +72,56 @@ public class MenuLateral extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Atribuindo os itens pelo id
+        //Atribuindo os itens do menu pelo id
         menuNav = navigationView.getMenu();
         menuLoginItem = menuNav.findItem(R.id.nav_login);
         menuLogout = menuNav.findItem(R.id.nav_logout);
+        menuContausu = menuNav.findItem(R.id.nav_contausu);
+        menuCadastrarProdutos = menuNav.findItem(R.id.nav_produtos);
         if(savedInstanceState == null){
-            //Se user logado
-            if (userPref.getTipoUsu() != null) {
-               //Oculta ico login
-                menuLoginItem.setVisible(false);
-                //Exibe ico logout
-                menuLogout.setVisible(true);
 
-                if (userPref.getTipoUsu().equals("VENDEDOR")) {
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.frame_conteiner, new EmpresaPrincipalActivity()).commit();
-                } else if (userPref.getTipoUsu().equals("CONSUMIDOR")) {
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.frame_conteiner, new ListarProdutos()).commit();
-                } else {
-                    getSupportFragmentManager().beginTransaction()
-                            .add(R.id.frame_conteiner, new ListarProdutos()).commit();
-                }
-             //Se user não logado
-            }else{
-                //Exibe ico login
-                menuLoginItem.setVisible(true);
-                //Oculta ico logout
-                menuLogout.setVisible(false);
-
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.frame_conteiner, new ListarProdutos()).commit();
-            }
 
         }
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        menuCadastrarProdutos.setVisible(false);
+        //Se user logado
+        if (userPref.getTipoUsu() != null) {
+            //Oculta opc login
+            menuLoginItem.setVisible(false);
+            //Exibe opc logout
+            menuLogout.setVisible(true);
+            //Exibe opc Conta usuario
+            menuContausu.setVisible(true);
+
+            if (userPref.getTipoUsu().equals("VENDEDOR")) {
+                //Exibe a opc de cadastro de produto
+                menuCadastrarProdutos.setVisible(true);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_conteiner, new EmpresaPrincipalActivity()).commit();
+            } else if (userPref.getTipoUsu().equals("CONSUMIDOR")) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+            }
+            //Se user não logado
+        }else{
+            //Exibe opc login
+            menuLoginItem.setVisible(true);
+            //Oculta opc logout
+            menuLogout.setVisible(false);
+            //Oculta opc Conta usuario
+            menuContausu.setVisible(false);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -169,7 +183,7 @@ public class MenuLateral extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.frame_conteiner,new Login()).commit();
@@ -177,11 +191,16 @@ public class MenuLateral extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_produtos) {
+            Intent intent = new Intent(this,CadastroProduto.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_login) {
+        } else if (id == R.id.nav_contausu) {
+            perfilUsu();
+        }
+        else if (id == R.id.nav_login) {
             Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
         }else if(id == R.id.nav_logout){
@@ -191,6 +210,11 @@ public class MenuLateral extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void perfilUsu() {
+        Intent intent = new Intent(this,MeuPerfilActivity.class);
+        startActivity(intent);
     }
 
     private void deslogar() {

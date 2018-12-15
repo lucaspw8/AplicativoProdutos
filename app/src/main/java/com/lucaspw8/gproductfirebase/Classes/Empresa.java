@@ -6,12 +6,21 @@ package com.lucaspw8.gproductfirebase.Classes;
 
 public class Empresa {
     private String nome;
-    private int telefone;
+    private String telefone;
     private String rua;
     private String bairro;
     private int numero;
     private String complemento;
     private String emailDono;
+    private String keyEmpresa;
+
+    public String getKeyEmpresa() {
+        return keyEmpresa;
+    }
+
+    public void setKeyEmpresa(String keyEmpresa) {
+        this.keyEmpresa = keyEmpresa;
+    }
 
     public String getNome() {
         return nome;
@@ -21,11 +30,11 @@ public class Empresa {
         this.nome = nome;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

@@ -126,7 +126,9 @@ public class CadastroUsuario extends AppCompatActivity {
     private boolean insereUsuario(Usuario usuario) {
         try {
             reference = ConfiguracaoFirebase.getFirebase().child("usuarios");
-            reference.push().setValue(usuario);
+            String key = reference.push().getKey();
+            usuario.setKeyUsuario(key);
+            reference.child(key).setValue(usuario);
             Toast.makeText( CadastroUsuario.this,"Usuário cadastrado com sucesso",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CadastroUsuario.this,MainActivity.class);
             finish();

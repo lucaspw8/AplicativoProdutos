@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -52,6 +53,7 @@ public class CadastroProduto extends AppCompatActivity {
 
     Preferencias preferencias;
     private Produto produto;
+    private boolean imgSelecionada = false;
 
     private ProgressDialog progressDialog;
 
@@ -70,12 +72,6 @@ public class CadastroProduto extends AppCompatActivity {
         preferencias = new Preferencias(CadastroProduto.this);
         permissao();
 
-
-
-
-
-
-
         //Acão do botao de cadastrar
         btCadastrarProd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,10 +82,16 @@ public class CadastroProduto extends AppCompatActivity {
                 produto.setValor(Float.parseFloat(valorProd.getText().toString()));
                 produto.setDescricao(descricao.getText().toString());
                 produto.setEmailEmpresa(preferencias.getEmailUsu());
+                //Desabilita o click do botao
                 btCadastrarProd.setClickable(false);
                 progressDialog = ProgressDialog.show(CadastroProduto.this, "Aguarde.",
                         "Cadastrando Produto..!", true);
-                cadastrarFotoProd();
+
+                if(imgSelecionada) {
+                    cadastrarFotoProd();
+                }else{
+                    cadastrarProduto(produto);
+                }
             }
         });
     }
@@ -109,13 +111,13 @@ public class CadastroProduto extends AppCompatActivity {
     }
 
     /**
-     * Carrega a imagem padrão do produto
+     * Carrega a imagem padrão do produto diretamente do Firebase
      */
     private void carregarFotoPadrao(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        Log.d("Foto","chamou foto padrao");
+
         storageReference =
-                storage.getReferenceFromUrl("gs://gproduct-3086b.appspot.com/produto_sem_foto.png");
+                storage.getReferenceFromUrl("gs://gproduct-3086b.appspot.com/imgprod.png");
 
         final int height = 300;
         final int width = 300;
@@ -146,10 +148,16 @@ public class CadastroProduto extends AppCompatActivity {
         final int width = 500;
 
         if(resultCode == Activity.RESULT_OK) {
+
             if (requestCode == 123) {
                 Uri imagemSelecionada = data.getData();
                 Picasso.get().load(imagemSelecionada).resize(width, height).centerCrop().into(imgProd);
+                imgSelecionada = true;
+                Log.d("Imagem teste","A imagem foi escolhida "+imagemSelecionada.toString());
             }
+        }else{
+            imgSelecionada = false;
+            Log.d("Imagem teste","A imagem Não foi escolhida");
         }
     }
 
@@ -158,7 +166,7 @@ public class CadastroProduto extends AppCompatActivity {
                 .child("fotoProduto/"+preferencias.getEmailUsu()+"/"
                         +produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
-        Log.d("Diretorio",montaImagemReferencia.toString());
+        imgProd.destroyDrawingCache();
         imgProd.buildDrawingCache();
         Bitmap bitmap = imgProd.getDrawingCache();
         ByteArrayOutputStream byteArray =  new ByteArrayOutputStream();
@@ -171,7 +179,7 @@ public class CadastroProduto extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText( CadastroProduto.this,"Erro na imagem: "+e.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText( CadastroProduto.this,"Erro ao salvar imagem: "+e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -190,13 +198,18 @@ public class CadastroProduto extends AppCompatActivity {
 
         try {
             reference = ConfiguracaoFirebase.getFirebase().child("produto");
-            reference.push().setValue(produto);
+            String key = reference.push().getKey();
+            produto.setKeyProduto(key);
+            reference.child(key).setValue(produto);
             Toast.makeText( CadastroProduto.this,"Produto cadastrado com sucesso",Toast.LENGTH_LONG).show();
+            //habilita o click do botao
+            btCadastrarProd.setClickable(true);
+            imgSelecionada = false;
             progressDialog.dismiss();
             nomeProd.setText("");
             valorProd.setText("");
             descricao.setText("");
-            imgProd.clearColorFilter();
+            carregarFotoPadrao();
 
         }catch (Exception e){
             progressDialog.dismiss();

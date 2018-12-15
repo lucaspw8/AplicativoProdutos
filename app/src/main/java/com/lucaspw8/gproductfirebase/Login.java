@@ -167,7 +167,7 @@ public class Login extends Fragment {
                                         //Salvando os dados em um objeto Empresa
                                         Empresa empresa =  new Empresa();
                                         empresa.setNome(postSnapshot.child("nome").getValue().toString());
-                                        empresa.setTelefone(Integer.parseInt(postSnapshot.child("telefone").getValue().toString()));
+                                        empresa.setTelefone(postSnapshot.child("telefone").getValue().toString());
                                         empresa.setNumero(Integer.parseInt( postSnapshot.child("numero").getValue().toString()));
                                         empresa.setRua(postSnapshot.child("rua").getValue().toString());
                                         empresa.setBairro(postSnapshot.child("bairro").getValue().toString());

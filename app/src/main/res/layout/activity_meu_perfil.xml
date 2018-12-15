@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conta tipo:"
+            android:text="Tipo conta:"
             android:textStyle="bold"
             android:textSize="16sp"
             android:paddingEnd="10dp"
@@ -78,5 +80,34 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnEditarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="info"
+        app:roundedCorners="true"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="end"
+
+        android:text="EDITAR"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnExcluirPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:bootstrapSize="lg"
+        app:bootstrapBrand="danger"
+        app:roundedCorners="true"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        android:layout_marginTop="10dp"
+
+        android:text="EXCLUIR CONTA"/>
 
 </LinearLayout>

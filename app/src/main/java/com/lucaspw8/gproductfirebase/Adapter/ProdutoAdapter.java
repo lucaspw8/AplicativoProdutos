@@ -76,13 +76,20 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
 
             }
         });
-        DecimalFormat df = new DecimalFormat("0.##");
+        DecimalFormat df = new DecimalFormat("0.00");
 
         holder.txtNomeProdLista.setText(item.getNome());
         holder.txtValorProdLista.setText("R$ "+df.format(item.getValor()));
         holder.txtDescriProdLista.setText(item.getDescricao());
-        Picasso.get().load(item.getImagemUrl()).resize(300,300).centerCrop()
-                .into(holder.fotoProdutoLista);
+
+        if(item.getImagemUrl() == null){
+            Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/gproduct-3086b.appspot.com/o/imgprod.png?alt=media&token=cdd47373-d625-4c04-b64b-0f372d811281")
+                    .resize(300, 300).centerCrop()
+                    .into(holder.fotoProdutoLista);
+        }else {
+            Picasso.get().load(item.getImagemUrl()).resize(300, 300).centerCrop()
+                    .into(holder.fotoProdutoLista);
+        }
 
         //Clica sobre o produto para expandir
         holder.linearLayoutProdutosLista.setOnClickListener(new View.OnClickListener() {
