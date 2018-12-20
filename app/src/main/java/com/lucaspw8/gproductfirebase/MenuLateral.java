@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
-import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class MenuLateral extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +28,7 @@ public class MenuLateral extends AppCompatActivity
     private FirebaseAuth autenticacao;
     private EmpresaPreferencias empresaPreferencias;
 
-    Preferencias userPref;
+    UsuarioPreferencias userPref;
     //Itens do menu lateral
     private Menu menuNav;
     private MenuItem menuLoginItem;
@@ -50,8 +49,8 @@ public class MenuLateral extends AppCompatActivity
 
 
 
-        //Preferencias de usuario
-        userPref = new Preferencias(this);
+        //UsuarioPreferencias de usuario
+        userPref = new UsuarioPreferencias(this);
         empresaPreferencias = new EmpresaPreferencias(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -184,9 +183,7 @@ public class MenuLateral extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frame_conteiner,new Login()).commit();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

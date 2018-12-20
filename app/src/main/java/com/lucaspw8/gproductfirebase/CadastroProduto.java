@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -15,8 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lucaspw8.gproductfirebase.Classes.Produto;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
-import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -51,7 +48,7 @@ public class CadastroProduto extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference reference;
 
-    Preferencias preferencias;
+    UsuarioPreferencias usuarioPreferencias;
     private Produto produto;
     private boolean imgSelecionada = false;
 
@@ -69,7 +66,7 @@ public class CadastroProduto extends AppCompatActivity {
         btCadastrarProd = findViewById(R.id.btnCadastrarProd);
 
         storageReference = ConfiguracaoFirebase.getStorageReference();
-        preferencias = new Preferencias(CadastroProduto.this);
+        usuarioPreferencias = new UsuarioPreferencias(CadastroProduto.this);
         permissao();
 
         //Acão do botao de cadastrar
@@ -81,7 +78,7 @@ public class CadastroProduto extends AppCompatActivity {
                 produto.setNome(nomeProd.getText().toString());
                 produto.setValor(Float.parseFloat(valorProd.getText().toString()));
                 produto.setDescricao(descricao.getText().toString());
-                produto.setEmailEmpresa(preferencias.getEmailUsu());
+                produto.setUidUsuario(usuarioPreferencias.getUidUsu());
                 //Desabilita o click do botao
                 btCadastrarProd.setClickable(false);
                 progressDialog = ProgressDialog.show(CadastroProduto.this, "Aguarde.",
@@ -161,9 +158,12 @@ public class CadastroProduto extends AppCompatActivity {
         }
     }
 
+    /**
+     * 
+     */
     private void cadastrarFotoProd(){
         StorageReference montaImagemReferencia = storageReference
-                .child("fotoProduto/"+preferencias.getEmailUsu()+"/"
+                .child("fotoProduto/"+ usuarioPreferencias.getUidUsu()+"/"
                         +produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
         imgProd.destroyDrawingCache();

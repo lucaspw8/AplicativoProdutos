@@ -1,5 +1,6 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -43,6 +44,8 @@ public class CadastroUsuario extends AppCompatActivity {
     private ActionBar actionBar;
 
     private Usuario usuario;
+
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,10 @@ public class CadastroUsuario extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressDialog = ProgressDialog.show(CadastroUsuario.this, "Aguarde.",
+                        "Cadastrando Usuário..!", true);
+                //Desabilita o click do botao
+                btnCadastrar.setClickable(false);
                 //Verifica se as senhas sao iguais
                 if(senha.getText().toString().equals(repetirSenha.getText().toString())){
                     usuario = new Usuario();
@@ -78,6 +84,9 @@ public class CadastroUsuario extends AppCompatActivity {
                 }else{
                     //Exibe mensagem de erro caso as senhas não correspondam
                     Toast.makeText(CadastroUsuario.this,"As senhas não correspondem",Toast.LENGTH_LONG).show();
+                    //Habilita o click do botao
+                    btnCadastrar.setClickable(true);
+                    progressDialog.dismiss();
                 }
             }
         });
@@ -102,8 +111,13 @@ public class CadastroUsuario extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            //retorna o Uid do usuario recem cadastrado
+                            usuario.setUidUsuario(autenticacao.getUid());
                             insereUsuario(usuario);
                         }else{
+                            //Habilita o click do botao
+                            btnCadastrar.setClickable(true);
+                            progressDialog.dismiss();
                             String erro = "";
                             try {
                                 throw task.getException();
@@ -122,7 +136,12 @@ public class CadastroUsuario extends AppCompatActivity {
                     }
                 });
     }
-    //Cadastra os restante dos dados do usuario recem cadastrado
+
+    /**
+     * Cadastra os restante dos dados do usuario recem cadastrado
+     * @param usuario
+     * @return
+     */
     private boolean insereUsuario(Usuario usuario) {
         try {
             reference = ConfiguracaoFirebase.getFirebase().child("usuarios");
@@ -130,12 +149,16 @@ public class CadastroUsuario extends AppCompatActivity {
             usuario.setKeyUsuario(key);
             reference.child(key).setValue(usuario);
             Toast.makeText( CadastroUsuario.this,"Usuário cadastrado com sucesso",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CadastroUsuario.this,MainActivity.class);
+            //Habilita o click do botao
+            btnCadastrar.setClickable(true);
+            progressDialog.dismiss();
             finish();
-            startActivity(intent);
 
             return true;
         }catch (Exception e){
+            //Habilita o click do botao
+            btnCadastrar.setClickable(true);
+            progressDialog.dismiss();
             Toast.makeText(CadastroUsuario.this,"Erro ao gravar o usuario",Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return false;

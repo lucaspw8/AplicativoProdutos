@@ -9,16 +9,16 @@ public class Produto{
     private String KeyProduto;
     private float valor;
     private String descricao;
-    private String emailEmpresa;
+    private String uidUsuario;
     private String imagemUrl;
 
 
-    public String getEmailEmpresa() {
-        return emailEmpresa;
+    public String getUidUsuario() {
+        return uidUsuario;
     }
 
-    public void setEmailEmpresa(String emailEmpresa) {
-        this.emailEmpresa = emailEmpresa;
+    public void setUidUsuario(String uidUsuario) {
+        this.uidUsuario = uidUsuario;
     }
 
     public String getNome() {

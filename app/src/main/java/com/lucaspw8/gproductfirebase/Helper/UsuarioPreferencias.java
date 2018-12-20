@@ -9,7 +9,7 @@ import com.lucaspw8.gproductfirebase.Classes.Usuario;
  * Created by lucas on 09/06/2018.
  */
 
-public class Preferencias {
+public class UsuarioPreferencias {
     private Context context;
     private SharedPreferences preferences;
     private String NOME_ARQUIVO = "app.preferencias";
@@ -19,8 +19,10 @@ public class Preferencias {
     private final String NOME_USU_LOGADO = "nome_usu_logado";
     private final  String  EMAIL_USU_LOGADO = "email_usu_logado";
     private final String TIPO_USU_LOGADO = "tipo_usu_logado";
+    private final String UID_USU_LOGADO = "uid_usu_logado";
+    private final String KEY_USU_LOGADO = "key_usu_logado";
 
-    public Preferencias(Context contextoParametro){
+    public UsuarioPreferencias(Context contextoParametro){
         context = contextoParametro;
         preferences = context.getSharedPreferences(NOME_ARQUIVO,MODE);
 
@@ -37,6 +39,8 @@ public class Preferencias {
         editor.putString(NOME_USU_LOGADO,usuario.getNome());
         editor.putString(EMAIL_USU_LOGADO,usuario.getEmail());
         editor.putString(TIPO_USU_LOGADO,usuario.getTipoUsuario());
+        editor.putString(UID_USU_LOGADO,usuario.getUidUsuario());
+        editor.putString(KEY_USU_LOGADO,usuario.getKeyUsuario());
         //Comita os dados no arquivo
         editor.commit();
     }
@@ -48,6 +52,8 @@ public class Preferencias {
         editor.putString(NOME_USU_LOGADO,null);
         editor.putString(EMAIL_USU_LOGADO,null);
         editor.putString(TIPO_USU_LOGADO,null);
+        editor.putString(UID_USU_LOGADO,null);
+        editor.putString(KEY_USU_LOGADO,null);
         editor.commit();
     }
 
@@ -62,6 +68,15 @@ public class Preferencias {
     public String getTipoUsu(){
         return preferences.getString(TIPO_USU_LOGADO,null);
     }
+    //Retorna o UID do usuário logado
+    public String getUidUsu(){
+        return preferences.getString(UID_USU_LOGADO,null);
+    }
+    //Retorna o UID do usuário logado
+    public String getKeyUsu(){
+        return preferences.getString(KEY_USU_LOGADO,null);
+    }
+
 }
 
 

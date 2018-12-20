@@ -2,7 +2,6 @@ package com.lucaspw8.gproductfirebase;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -31,7 +30,7 @@ import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.Classes.Usuario;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
-import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText edtEmailSenha =  new EditText(MainActivity.this);
         edtEmailSenha.setHint("exemplo@exemplo.com");
 
-        if(usuarioLogado()){
-            progressDialog = ProgressDialog.show(this, "Aguarde.",
-                    "Entrando no sistema..!", true);
-           tipoUsuario();
-        }else {
+
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
+
 
         //Chamar tela de cadastro de usuario
         txtnovaConta.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(usuarioLogado()){
+            progressDialog = ProgressDialog.show(this, "Aguarde.",
+                    "Entrando no sistema..!", true);
+            tipoUsuario();
+        }
     }
 
     /**
@@ -170,14 +175,16 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                     usuario.setTipoUsuario(postSnapshot.child("tipoUsuario").getValue().toString());
                     usuario.setNome(postSnapshot.child("nome").getValue().toString());
-                    //Salvando nas preferencias de usuario
-                    Preferencias preferencias = new Preferencias(MainActivity.this);
-                    preferencias.salvarUsu(usuario);
+                    usuario.setUidUsuario(postSnapshot.child("uidUsuario").getValue().toString());
+                    usuario.setKeyUsuario(postSnapshot.child("keyUsuario").getValue().toString());
+                    //Salvando nas usuarioPreferencias de usuario
+                    UsuarioPreferencias usuarioPreferencias = new UsuarioPreferencias(MainActivity.this);
+                    usuarioPreferencias.salvarUsu(usuario);
 
                     if (usuario.getTipoUsuario().equals("VENDEDOR")) {
                                             //Tipo Vendedor
                         //Buscando empresa do Vendedor
-                        referenceFirebase.child("empresa").orderByChild("emailDono").equalTo(usuario.getEmail()).addValueEventListener(new ValueEventListener() {
+                        referenceFirebase.child("empresa").orderByChild("uidUsuario").equalTo(usuario.getUidUsuario()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //Verifica se existe alguma empresa
@@ -187,11 +194,11 @@ public class MainActivity extends AppCompatActivity {
                                         Empresa empresa =  new Empresa();
                                         empresa.setNome(postSnapshot.child("nome").getValue().toString());
                                         empresa.setTelefone(postSnapshot.child("telefone").getValue().toString());
-                                        empresa.setNumero(Integer.parseInt( postSnapshot.child("numero").getValue().toString()));
+                                        empresa.setNumero( postSnapshot.child("numero").getValue().toString());
                                         empresa.setRua(postSnapshot.child("rua").getValue().toString());
                                         empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
                                         empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
-                                        empresa.setEmailDono(postSnapshot.child("emailDono").getValue().toString());
+                                        empresa.setUidUsuario(postSnapshot.child("uidUsuario").getValue().toString());
                                         //Salvando no SharedPreferencias de Empresa
                                         EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(MainActivity.this);
                                         empresaPreferencias.salvarEmpresa(empresa);

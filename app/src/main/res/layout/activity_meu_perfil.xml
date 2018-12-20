@@ -94,7 +94,7 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="end"
 
-        android:text="EDITAR"/>
+        android:text="Editar"/>
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/btnExcluirPerfil"
@@ -108,6 +108,6 @@
         app:showOutline="false"
         android:layout_marginTop="10dp"
 
-        android:text="EXCLUIR CONTA"/>
+        android:text="Excluir conta"/>
 
 </LinearLayout>

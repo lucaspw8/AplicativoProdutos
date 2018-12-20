@@ -1,5 +1,6 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -20,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class CadastroEmpresaActivity extends AppCompatActivity {
 
@@ -37,11 +37,14 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
     private DatabaseReference referenceFirebase;
 
     private Empresa empresa;
+    UsuarioPreferencias usuPref;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_empresa);
+        usuPref = new UsuarioPreferencias(CadastroEmpresaActivity.this);
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
@@ -58,34 +61,42 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         MaskTextWatcher mtw = new MaskTextWatcher(telefoneEmpresa,mask);
         telefoneEmpresa.addTextChangedListener(mtw);
         //Fim da mascara
-
+        Log.d("IDUsu",""+usuPref.getUidUsu());
         btnCadastrarEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = ProgressDialog.show(CadastroEmpresaActivity.this, "Aguarde.",
+                        "Cadastrando Empresa..!", true);
+                btnCadastrarEmpresa.setClickable(false);
+
+
                 empresa = new Empresa();
-                //Atribui o email do usuario logado no momento
-                empresa.setEmailDono(autenticacao.getCurrentUser().getEmail());
+                empresa.setUidUsuario(usuPref.getUidUsu());
                 empresa.setNome(nomeEmpresa.getText().toString());
 
                 empresa.setRua(ruaEmpresa.getText().toString());
                 empresa.setBairro(bairroEmpresa.getText().toString());
-                //verifica se o campo de numero n esta vazio para evitar erros na hr da conversão
 
-                if (!numeroEmpresa.getText().toString().equals("") && !telefoneEmpresa.getText().toString().equals("")){
-                    empresa.setNumero(Integer.parseInt(numeroEmpresa.getText().toString()));
-                    empresa.setTelefone(telefoneEmpresa.getText().toString());
-                }
+                empresa.setNumero(numeroEmpresa.getText().toString());
+                empresa.setTelefone(telefoneEmpresa.getText().toString());
+
                 empresa.setComplemento(complementoEmpresa.getText().toString());
                 if(!empresa.getNome().equals("")){
                     cadastarEmpresa(empresa);
                 }else{
-                    Toast.makeText(CadastroEmpresaActivity.this,"Imforme ao menos um nome para a empresa",Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                    btnCadastrarEmpresa.setClickable(true);
+                    Toast.makeText(CadastroEmpresaActivity.this,"Imforme ao menos o nome para a empresa",Toast.LENGTH_LONG).show();
                 }
 
             }
         });
     }
 
+    /**
+     * Cadastra a empresa passada por parametro
+     * @param empresa
+     */
     public void cadastarEmpresa(Empresa empresa){
         try {
             referenceFirebase = ConfiguracaoFirebase.getFirebase().child("empresa");
@@ -93,11 +104,12 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             empresa.setKeyEmpresa(key);
             referenceFirebase.child(key).setValue(empresa);
             Toast.makeText( CadastroEmpresaActivity.this,"Empresa cadastrada com sucesso",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CadastroEmpresaActivity.this,MenuLateral.class);
             finish();
-            startActivity(intent);
+
 
         }catch (Exception e){
+            progressDialog.dismiss();
+            btnCadastrarEmpresa.setClickable(true);
             Toast.makeText( CadastroEmpresaActivity.this,"Erro ao cadastrar "+e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -122,8 +134,6 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
 
     private void deslogar() {
         autenticacao.signOut();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
         finish();
     }
 }

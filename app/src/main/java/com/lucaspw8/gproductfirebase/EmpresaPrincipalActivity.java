@@ -1,12 +1,9 @@
 package com.lucaspw8.gproductfirebase;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
-import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 import java.text.DecimalFormat;
 
@@ -30,8 +27,8 @@ public class EmpresaPrincipalActivity extends Fragment {
     //Menu de opções
     private Menu menu1;
 
-    //Preferencias
-    private Preferencias preferencias;
+    //UsuarioPreferencias
+    private UsuarioPreferencias usuarioPreferencias;
     private EmpresaPreferencias empresaPreferencias;
     private Empresa empresa;
     private TextView txttituloEmpresa;
@@ -44,7 +41,7 @@ public class EmpresaPrincipalActivity extends Fragment {
         //Obter a view do fragmento
         View view = inflater.inflate(R.layout.activity_empresa_principal, container, false);
 
-        preferencias = new Preferencias(getActivity());
+        usuarioPreferencias = new UsuarioPreferencias(getActivity());
         empresaPreferencias = new EmpresaPreferencias(getActivity());
         //pegando referencia do Firebase
         autenticacao = FirebaseAuth.getInstance();
@@ -58,7 +55,7 @@ public class EmpresaPrincipalActivity extends Fragment {
 
        final DecimalFormat df = new DecimalFormat("0.##");
 
-        referenceFirebase.child("produto").orderByChild("emailEmpresa").equalTo(empresa.getEmailDono()).addValueEventListener(new ValueEventListener() {
+        referenceFirebase.child("produto").orderByChild("emailEmpresa").equalTo(empresa.getUidUsuario()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -105,7 +102,7 @@ public class EmpresaPrincipalActivity extends Fragment {
 
     private void deslogar() {
         autenticacao.signOut();
-        preferencias.limparDados();
+        usuarioPreferencias.limparDados();
         empresaPreferencias.limparDados();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);

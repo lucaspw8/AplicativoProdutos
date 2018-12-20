@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditarPerfil"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar conta"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/txtNomeUsu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtEditarNomeUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="lg"
+                app:roundedCorners="true" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/txtSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Senha:"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/edtEditarSenhaUsu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="lg"
+                    app:roundedCorners="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtRepetirSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtSenha"
+                android:layout_marginTop="10dp"
+                android:text="Repetir:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/edtEditarRepetirSenhaUsu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="lg"
+                    app:roundedCorners="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditarUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Salvar"
+                android:textSize="20sp"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditarUsuCancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cancelar"
+                android:textSize="20sp"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

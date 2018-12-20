@@ -9,9 +9,9 @@ public class Empresa {
     private String telefone;
     private String rua;
     private String bairro;
-    private int numero;
+    private String numero;
     private String complemento;
-    private String emailDono;
+    private String uidUsuario;
     private String keyEmpresa;
 
     public String getKeyEmpresa() {
@@ -54,11 +54,11 @@ public class Empresa {
         this.bairro = bairro;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -70,11 +70,11 @@ public class Empresa {
         this.complemento = complemento;
     }
 
-    public String getEmailDono() {
-        return emailDono;
+    public String getUidUsuario() {
+        return uidUsuario;
     }
 
-    public void setEmailDono(String emailDono) {
-        this.emailDono = emailDono;
+    public void setUidUsuario(String uidUsuario) {
+        this.uidUsuario = uidUsuario;
     }
 }

@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Usuario;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
-import com.lucaspw8.gproductfirebase.Helper.Preferencias;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class MeuPerfilActivity extends AppCompatActivity {
     private ActionBar actionBar;
@@ -38,7 +38,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth autenticacao;
 
-    private Preferencias usuPref;
+    private UsuarioPreferencias usuPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
 
 
-        usuPref = new Preferencias(this);
+        usuPref = new UsuarioPreferencias(this);
         txtNomeUsu.setText(usuPref.getNOME_USU_LOGADO());
         txtEmailUsu.setText(usuPref.getEmailUsu());
         txtTipoUsu.setText(usuPref.getTipoUsu());
@@ -102,18 +102,15 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
     private void excluirUsuarioDeslogar() {
 
-        String emailUsuarioLogado = autenticacao.getCurrentUser().getEmail();
-
+        final FirebaseUser user = autenticacao.getCurrentUser();
         databaseReference = ConfiguracaoFirebase.getFirebase();
 
-        databaseReference.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("usuarios").orderByChild("uidUsuario").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (final DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     final Usuario usuario = postSnapshot.getValue(Usuario.class);
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     user.delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
