@@ -19,6 +19,7 @@ public class EmpresaPreferencias {
     private final String NUMERO = "numero";
     private final String COMPLEMENTO ="complemento";
     private final String UIDUSUARIO ="uidusuario";
+    private final String KEY_EMPRESA ="key_empresa";
 
     public EmpresaPreferencias(Context contextParametro) {
         context = contextParametro;
@@ -40,6 +41,7 @@ public class EmpresaPreferencias {
         editor.putString(NUMERO,empresa.getNumero());
         editor.putString(COMPLEMENTO,empresa.getComplemento());
         editor.putString(UIDUSUARIO,empresa.getUidUsuario());
+        editor.putString(KEY_EMPRESA,empresa.getKeyEmpresa());
 
         editor.commit();
     }
@@ -57,6 +59,7 @@ public class EmpresaPreferencias {
         empresa.setNumero(preferences.getString(NUMERO,null));
         empresa.setComplemento(preferences.getString(COMPLEMENTO,null));
         empresa.setUidUsuario(preferences.getString(UIDUSUARIO,null));
+        empresa.setKeyEmpresa(preferences.getString(KEY_EMPRESA,null));
 
         return empresa;
     }
@@ -72,6 +75,7 @@ public class EmpresaPreferencias {
         editor.putString(NUMERO,null);
         editor.putString(COMPLEMENTO,null);
         editor.putString(UIDUSUARIO,null);
+        editor.putString(KEY_EMPRESA,null);
         editor.commit();
     }
 }

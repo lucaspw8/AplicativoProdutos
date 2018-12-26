@@ -2,6 +2,7 @@ package com.lucaspw8.gproductfirebase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,14 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
+import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class CadastroEmpresaActivity extends AppCompatActivity {
@@ -38,6 +43,7 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
 
     private Empresa empresa;
     UsuarioPreferencias usuPref;
+    EmpresaPreferencias empresaPreferencias;
     private ProgressDialog progressDialog;
 
     @Override
@@ -45,6 +51,7 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_empresa);
         usuPref = new UsuarioPreferencias(CadastroEmpresaActivity.this);
+        empresaPreferencias = new EmpresaPreferencias(CadastroEmpresaActivity.this);
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
@@ -103,6 +110,7 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             String key = referenceFirebase.push().getKey();
             empresa.setKeyEmpresa(key);
             referenceFirebase.child(key).setValue(empresa);
+            progressDialog.dismiss();
             Toast.makeText( CadastroEmpresaActivity.this,"Empresa cadastrada com sucesso",Toast.LENGTH_LONG).show();
             finish();
 
@@ -112,6 +120,13 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             btnCadastrarEmpresa.setClickable(true);
             Toast.makeText( CadastroEmpresaActivity.this,"Erro ao cadastrar "+e.getMessage(),Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
     }
 
     @Override
@@ -126,14 +141,10 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.sair_consumidor) {
-            deslogar();
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void deslogar() {
-        autenticacao.signOut();
-        finish();
-    }
 }

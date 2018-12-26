@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         //Recebendo email do usuario logado no momento
         usuario.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         //Buscando usuario cujo email é igual o email do usuario logado no momento
-        referenceFirebase.child("usuarios").orderByChild("email").equalTo(usuario.getEmail()).addValueEventListener(new ValueEventListener() {
+        referenceFirebase.child("usuarios").orderByChild("email").equalTo(usuario.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     if (usuario.getTipoUsuario().equals("VENDEDOR")) {
                                             //Tipo Vendedor
                         //Buscando empresa do Vendedor
-                        referenceFirebase.child("empresa").orderByChild("uidUsuario").equalTo(usuario.getUidUsuario()).addValueEventListener(new ValueEventListener() {
+                        referenceFirebase.child("empresa").orderByChild("uidUsuario").equalTo(usuario.getUidUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //Verifica se existe alguma empresa
@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
                                         empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
                                         empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
                                         empresa.setUidUsuario(postSnapshot.child("uidUsuario").getValue().toString());
+                                        empresa.setKeyEmpresa(postSnapshot.child("keyEmpresa").getValue().toString());
                                         //Salvando no SharedPreferencias de Empresa
                                         EmpresaPreferencias empresaPreferencias =  new EmpresaPreferencias(MainActivity.this);
                                         empresaPreferencias.salvarEmpresa(empresa);

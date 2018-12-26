@@ -75,8 +75,12 @@ public class CadastroProduto extends AppCompatActivity {
             public void onClick(View view) {
 
                 produto = new Produto();
+                produto.setImagemReference("");
+                produto.setImagemUrl("");
                 produto.setNome(nomeProd.getText().toString());
-                produto.setValor(Float.parseFloat(valorProd.getText().toString()));
+                if(!valorProd.getText().toString().equals("")) {
+                    produto.setValor(Float.parseFloat(valorProd.getText().toString()));
+                }
                 produto.setDescricao(descricao.getText().toString());
                 produto.setUidUsuario(usuarioPreferencias.getUidUsu());
                 //Desabilita o click do botao
@@ -162,8 +166,9 @@ public class CadastroProduto extends AppCompatActivity {
      * 
      */
     private void cadastrarFotoProd(){
+        storageReference = ConfiguracaoFirebase.getStorageReference();
         StorageReference montaImagemReferencia = storageReference
-                .child("fotoProduto/"+ usuarioPreferencias.getUidUsu()+"/"
+                .child("fotoProduto/"+usuarioPreferencias.getUidUsu()+"/"
                         +produto.getNome()+".jpg");
         imgProd.setDrawingCacheEnabled(true);
         imgProd.destroyDrawingCache();
@@ -186,6 +191,8 @@ public class CadastroProduto extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 produto.setImagemUrl(downloadUrl.toString());
+                produto.setImagemReference(taskSnapshot.getMetadata().getPath());
+                produto.setImagemReference(downloadUrl.toString());
                 cadastrarProduto(produto);
 
             }

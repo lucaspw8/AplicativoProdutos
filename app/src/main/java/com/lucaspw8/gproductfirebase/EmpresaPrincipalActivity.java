@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -47,19 +48,18 @@ public class EmpresaPrincipalActivity extends Fragment {
         autenticacao = FirebaseAuth.getInstance();
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
         //Recuperando os dados da empresa
-        empresa = empresaPreferencias.getEmpresa();
+
 
         txttituloEmpresa = view.findViewById(R.id.txtTituloEmpresa);
-        txttituloEmpresa.setText(empresa.getNome());
         txtqtdProd = view.findViewById(R.id.txtqtdProd);
 
        final DecimalFormat df = new DecimalFormat("0.##");
 
-        referenceFirebase.child("produto").orderByChild("emailEmpresa").equalTo(empresa.getUidUsuario()).addValueEventListener(new ValueEventListener() {
+        referenceFirebase.child("produto").orderByChild("uidUsuario").equalTo(usuarioPreferencias.getUidUsu()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produtos cadastrados");
+                    txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produto(s) cadastrados");
                 }else{
                     txtqtdProd.setText("Não há produtos cadastrados");
                 }
@@ -71,8 +71,40 @@ public class EmpresaPrincipalActivity extends Fragment {
             }
         });
 
+        referenceFirebase.child("empresa").orderByChild("uidUsuario").equalTo(usuarioPreferencias.getUidUsu()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Verifica se existe alguma empresa
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        //Salvando os dados em um objeto Empresa
+                        Empresa empresa =  new Empresa();
+                        empresa.setNome(postSnapshot.child("nome").getValue().toString());
+                        empresa.setTelefone(postSnapshot.child("telefone").getValue().toString());
+                        empresa.setNumero( postSnapshot.child("numero").getValue().toString());
+                        empresa.setRua(postSnapshot.child("rua").getValue().toString());
+                        empresa.setBairro(postSnapshot.child("bairro").getValue().toString());
+                        empresa.setComplemento(postSnapshot.child("complemento").getValue().toString());
+                        empresa.setUidUsuario(postSnapshot.child("uidUsuario").getValue().toString());
+                        empresa.setKeyEmpresa(postSnapshot.child("keyEmpresa").getValue().toString());
+                        txttituloEmpresa.setText(empresa.getNome());
+                        //Salvando no SharedPreferencias de Empresa
+                        empresaPreferencias.salvarEmpresa(empresa);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        empresa = empresaPreferencias.getEmpresa();
+        txttituloEmpresa.setText(empresa.getNome());
         return view;
     }
+
 
 /*
     @Override
@@ -107,9 +139,5 @@ public class EmpresaPrincipalActivity extends Fragment {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-
-    private void AbrirTelaCadProduto() {
-        Intent intent = new Intent(this,CadastroProduto.class);
-        startActivity(intent);
-    }*/
+*/
 }

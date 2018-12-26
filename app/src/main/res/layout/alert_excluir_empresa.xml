@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_margin="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="30dp"
-        android:text="Excluir conta?"/>
+        android:text="Excluir empresa?"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="18dp"
-        android:text="Isso apagará sua conta e todos os dados associados a ela , essa ação não pode ser desfeita!"/>
+        android:text="Isso apagará sua empresa e todos os produtos associados a ela , essa ação não pode ser desfeita!"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +27,7 @@
         android:gravity="center">
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/btnConfirmaExcluirUsu"
+            android:id="@+id/btnConfirmaExcluirEmpresa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sim"
@@ -56,7 +54,7 @@
         android:gravity="center">
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/btnNegaExcluirUsu"
+            android:id="@+id/btnNegaExcluirEmpresa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Não"

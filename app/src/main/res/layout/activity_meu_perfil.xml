@@ -1,113 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MeuPerfilActivity"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:orientation="vertical"
+    tools:context=".MeuPerfilActivity">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MINHA CONTA"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome:"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"/>
-
-        <TextView
-            android:id="@+id/txtNomeUsuPerfil"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"/>
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E-mail:"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"/>
 
-        <TextView
-            android:id="@+id/txtEmailUsuPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo conta:"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Minha conta"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtTipoUsuPerfil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Nome:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:bootstrapSize="lg"
-        app:bootstrapBrand="info"
-        app:roundedCorners="true"
-        app:buttonMode="regular"
-        app:showOutline="false"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="end"
+                    <TextView
+                        android:id="@+id/txtNomeUsuPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
 
-        android:text="Editar"/>
+                </LinearLayout>
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnExcluirPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:bootstrapSize="lg"
-        app:bootstrapBrand="danger"
-        app:roundedCorners="true"
-        app:buttonMode="regular"
-        app:showOutline="false"
-        android:layout_marginTop="10dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-        android:text="Excluir conta"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="E-mail:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/txtEmailUsuPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tipo conta:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtTipoUsuPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btnEditarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="15dp"
+                    android:text="Editar"
+                    android:textSize="20sp"
+                    app:bootstrapBrand="info"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:roundedCorners="true"
+
+                    app:showOutline="false" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btnExcluirPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Excluir conta"
+                    android:textSize="20sp"
+                    app:bootstrapBrand="danger"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:roundedCorners="true"
+
+                    app:showOutline="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:id="@+id/lEmpresaPerfil">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Minha Empresa"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Nome:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtNomeEmpresaPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Telefone:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtTelefoneEmpresaPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Endereço:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtEnderecoEmpresaPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Complemento:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtComplementoEmpresaPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btnEditarEmpresaPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="15dp"
+                    android:text="Editar empresa"
+                    android:textSize="20sp"
+                    app:bootstrapBrand="info"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:roundedCorners="true"
+
+                    app:showOutline="false" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btnExcluirEmpresaPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Excluir empresa"
+                    android:textSize="20sp"
+                    app:bootstrapBrand="danger"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:roundedCorners="true"
+
+                    app:showOutline="false" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
