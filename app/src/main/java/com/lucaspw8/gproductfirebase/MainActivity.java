@@ -66,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
         referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
 
-        final EditText edtEmailSenha =  new EditText(MainActivity.this);
-        edtEmailSenha.setHint("exemplo@exemplo.com");
-
-
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -175,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                     usuario.setTipoUsuario(postSnapshot.child("tipoUsuario").getValue().toString());
                     usuario.setNome(postSnapshot.child("nome").getValue().toString());
+                    usuario.setSenha(senha.getText().toString());
                     usuario.setUidUsuario(postSnapshot.child("uidUsuario").getValue().toString());
                     usuario.setKeyUsuario(postSnapshot.child("keyUsuario").getValue().toString());
                     //Salvando nas usuarioPreferencias de usuario

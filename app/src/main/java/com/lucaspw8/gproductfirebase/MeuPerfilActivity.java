@@ -1,6 +1,7 @@
 package com.lucaspw8.gproductfirebase;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -61,6 +64,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
     Empresa empresa;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,11 +96,15 @@ public class MeuPerfilActivity extends AppCompatActivity {
         empresaPreferencias = new EmpresaPreferencias(this);
         empresa = empresaPreferencias.getEmpresa();
         //
-        txtNomeUsu.setText(usuPref.getNOME_USU_LOGADO());
-        txtEmailUsu.setText(usuPref.getEmailUsu());
-        txtTipoUsu.setText(usuPref.getTipoUsu());
 
 
+        btEditarConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MeuPerfilActivity.this,EditarPerfil.class);
+                startActivity(intent);
+            }
+        });
 
         btExcluirConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +134,9 @@ public class MeuPerfilActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        txtNomeUsu.setText(usuPref.getNomeUsu());
+        txtEmailUsu.setText(usuPref.getEmailUsu());
+        txtTipoUsu.setText(usuPref.getTipoUsu());
         if (empresaPreferencias.getEmpresa().getNome() != null) {
             layoutEmpresa.setVisibility(View.VISIBLE);
             txtNomeEmpresa.setText(empresa.getNome());
@@ -145,8 +156,12 @@ public class MeuPerfilActivity extends AppCompatActivity {
         if(empresaPreferencias.getEmpresa().getNome()!= null){
             excluirEmpresa();
         }
+        final FirebaseUser user;
+        user = autenticacao.getCurrentUser();
+        Log.d("Luk", usuPref.getEmailUsu()+""+" "+usuPref.getSenhaUsu());
+        final AuthCredential credential = EmailAuthProvider.getCredential(usuPref.getEmailUsu(),usuPref.getSenhaUsu());
 
-        final FirebaseUser user = autenticacao.getCurrentUser();
+
         databaseReference = ConfiguracaoFirebase.getFirebase();
         databaseReference.child("usuarios").orderByChild("uidUsuario").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,8 +169,9 @@ public class MeuPerfilActivity extends AppCompatActivity {
                 for (final DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     final Usuario usuario = postSnapshot.getValue(Usuario.class);
+                    user.reauthenticate(credential);
 
-                    user.delete()
+                    user. delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

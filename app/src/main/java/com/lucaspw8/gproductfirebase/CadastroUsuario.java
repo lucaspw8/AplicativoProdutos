@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lucaspw8.gproductfirebase.Classes.Usuario;
 import com.lucaspw8.gproductfirebase.DAO.ConfiguracaoFirebase;
+import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 public class CadastroUsuario extends AppCompatActivity {
 
@@ -113,6 +114,8 @@ public class CadastroUsuario extends AppCompatActivity {
                         if(task.isSuccessful()){
                             //retorna o Uid do usuario recem cadastrado
                             usuario.setUidUsuario(autenticacao.getUid());
+                            UsuarioPreferencias usuPref = new UsuarioPreferencias(CadastroUsuario.this);
+                            usuPref.setSenhaUsu(usuario.getSenha());
                             insereUsuario(usuario);
                         }else{
                             //Habilita o click do botao
@@ -148,6 +151,7 @@ public class CadastroUsuario extends AppCompatActivity {
             String key = reference.push().getKey();
             usuario.setKeyUsuario(key);
             reference.child(key).setValue(usuario);
+
             Toast.makeText( CadastroUsuario.this,"Usuário cadastrado com sucesso",Toast.LENGTH_LONG).show();
             //Habilita o click do botao
             btnCadastrar.setClickable(true);
