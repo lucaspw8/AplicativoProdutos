@@ -91,11 +91,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
         txtComplementoEmpresa = findViewById(R.id.txtComplementoEmpresaPerfil);
 
 
-        //instanciando as preferencias
-        usuPref = new UsuarioPreferencias(this);
-        empresaPreferencias = new EmpresaPreferencias(this);
-        empresa = empresaPreferencias.getEmpresa();
-        //
+
 
 
         btEditarConta.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +106,14 @@ public class MeuPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 abrirDialogExclusaoConta();
+            }
+        });
+
+        btEditarEmpresa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MeuPerfilActivity.this,EditarEmpresa.class);
+                startActivity(intent);
             }
         });
 
@@ -134,6 +138,11 @@ public class MeuPerfilActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //instanciando as preferencias
+        usuPref = new UsuarioPreferencias(this);
+        empresaPreferencias = new EmpresaPreferencias(this);
+        empresa = empresaPreferencias.getEmpresa();
+
         txtNomeUsu.setText(usuPref.getNomeUsu());
         txtEmailUsu.setText(usuPref.getEmailUsu());
         txtTipoUsu.setText(usuPref.getTipoUsu());

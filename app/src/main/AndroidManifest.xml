@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MeuPerfilActivity" />
-        <activity android:name=".EditarPerfil"></activity>
+        <activity android:name=".EditarPerfil" />
+        <activity android:name=".EditarEmpresa"></activity>
     </application>
 
 </manifest>
