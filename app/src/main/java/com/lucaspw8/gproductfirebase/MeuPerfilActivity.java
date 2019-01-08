@@ -244,9 +244,9 @@ public class MeuPerfilActivity extends AppCompatActivity {
                         Produto produto = postSnapshot.getValue(Produto.class);
 
                         //Apaga imagem do produto
-                        if(!produto.getImagemReference().equals("")) {
+                        if(!produto.getImagemUrl().equals("")) {
                             FirebaseStorage storage = FirebaseStorage.getInstance();
-                            storage.getReferenceFromUrl(produto.getImagemReference()).delete();
+                            storage.getReferenceFromUrl(produto.getImagemUrl()).delete();
                         }
                         //Remove produto
                         databaseReference.child("produto").child(produto.getKeyProduto()).removeValue();

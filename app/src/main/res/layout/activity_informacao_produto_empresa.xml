@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".InformacaoProdutoEmpresa"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_gravity="start">
+
+            <ImageView
+                android:id="@+id/imgInformacaoEmpresaProduto"
+                android:layout_width="200dp"
+                android:layout_height="180dp"
+                android:src="@drawable/imgprod"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/txtNomeInformacaoEmpresaprod"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/CorPreta"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtValorInformacaoEmpresaProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/CorPreta"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/txtDescricaoInformacaoEmpresaProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp"/>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditarProdInformacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Editar"
+                android:textSize="20sp"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnExcluirProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Excluir"
+                android:textSize="20sp"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

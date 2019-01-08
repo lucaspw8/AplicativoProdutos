@@ -2,6 +2,8 @@ package com.lucaspw8.gproductfirebase.Adapter;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -19,7 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lucaspw8.gproductfirebase.CadastroUsuario;
 import com.lucaspw8.gproductfirebase.Classes.Produto;
+import com.lucaspw8.gproductfirebase.InformacaoProduto;
+import com.lucaspw8.gproductfirebase.InformacaoProdutoEmpresa;
+import com.lucaspw8.gproductfirebase.MeuPerfilActivity;
 import com.lucaspw8.gproductfirebase.R;
 import com.squareup.picasso.Picasso;
 
@@ -34,10 +40,12 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     private DatabaseReference referenciaFirebase;
     private List<Produto> produtos;
     private Produto todosProdutos;
+    private String direcao;
 
-    public ProdutoAdapter(List<Produto> l, Context c){
+    public ProdutoAdapter(List<Produto> l, Context c,String direcao){
         this.context = c;
         mprodutoList = l;
+        this.direcao = direcao;
 
     }
 
@@ -95,7 +103,24 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         holder.linearLayoutProdutosLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Produto",""+produtos.get(position).getNome());
+                Log.d("Produto","nome "+item.getNome()+" uidUsu: "+item.getUidUsuario());
+                Bundle bundle = new Bundle();
+                bundle.putString("nomeProd",item.getNome());
+                bundle.putString("valor",String.valueOf(item.getValor()));
+                bundle.putString("descricao",item.getDescricao());
+                bundle.putString("keyProduto",item.getKeyProduto());
+                bundle.putString("uidUsuario",item.getUidUsuario());
+                bundle.putString("imagemUrl",item.getImagemUrl());
+
+                if(direcao.equals("usuComum")) {
+                    Intent intent = new Intent(context, InformacaoProduto.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else if(direcao.equals("usuVendedor")){
+                    Intent intent = new Intent(context, InformacaoProdutoEmpresa.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
             }
         });
 

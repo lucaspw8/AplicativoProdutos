@@ -2,6 +2,9 @@ package com.lucaspw8.gproductfirebase;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -15,11 +18,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lucaspw8.gproductfirebase.Adapter.ProdutoAdapter;
 import com.lucaspw8.gproductfirebase.Classes.Empresa;
+import com.lucaspw8.gproductfirebase.Classes.Produto;
 import com.lucaspw8.gproductfirebase.Helper.EmpresaPreferencias;
 import com.lucaspw8.gproductfirebase.Helper.UsuarioPreferencias;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmpresaPrincipalActivity extends Fragment {
     //Firebase
@@ -34,6 +41,12 @@ public class EmpresaPrincipalActivity extends Fragment {
     private Empresa empresa;
     private TextView txttituloEmpresa;
     private TextView txtqtdProd;
+
+    private RecyclerView mrecyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private List<Produto> listaProdutos;
+    private Produto produto;
+    private  ProdutoAdapter adapter;
 
 
     @Override
@@ -50,26 +63,10 @@ public class EmpresaPrincipalActivity extends Fragment {
         //Recuperando os dados da empresa
 
 
+        mrecyclerView = view.findViewById(R.id.listaProdEmpresa);
+
         txttituloEmpresa = view.findViewById(R.id.txtTituloEmpresa);
         txtqtdProd = view.findViewById(R.id.txtqtdProd);
-
-       final DecimalFormat df = new DecimalFormat("0.##");
-
-        referenceFirebase.child("produto").orderByChild("uidUsuario").equalTo(usuarioPreferencias.getUidUsu()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produto(s) cadastrados");
-                }else{
-                    txtqtdProd.setText("Não há produtos cadastrados");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         referenceFirebase.child("empresa").orderByChild("uidUsuario").equalTo(usuarioPreferencias.getUidUsu()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -102,7 +99,50 @@ public class EmpresaPrincipalActivity extends Fragment {
 
         empresa = empresaPreferencias.getEmpresa();
         txttituloEmpresa.setText(empresa.getNome());
+        carregarTodosProdutos();
         return view;
+    }
+
+
+    private void carregarTodosProdutos(){
+        mrecyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(
+                getActivity(),LinearLayoutManager.VERTICAL,false);
+
+        mrecyclerView.setLayoutManager(linearLayoutManager);
+        mrecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+
+        listaProdutos = new ArrayList<>();
+
+        referenceFirebase = FirebaseDatabase.getInstance().getReference();
+
+        referenceFirebase.child("produto").orderByChild("uidUsuario").equalTo(usuarioPreferencias.getUidUsu()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    txtqtdProd.setText(dataSnapshot.getChildrenCount()+" produto(s) cadastrados");
+                }else{
+                    txtqtdProd.setText("Não há produtos cadastrados");
+                }
+
+                listaProdutos.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    produto = postSnapshot.getValue(Produto.class);
+
+                    listaProdutos.add(produto);
+
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        adapter = new ProdutoAdapter(listaProdutos,getActivity(),"usuVendedor");
+        mrecyclerView.setAdapter(adapter);
     }
 
 

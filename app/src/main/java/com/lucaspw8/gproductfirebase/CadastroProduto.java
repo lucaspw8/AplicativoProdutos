@@ -50,6 +50,7 @@ public class CadastroProduto extends AppCompatActivity {
 
     UsuarioPreferencias usuarioPreferencias;
     private Produto produto;
+    //Verifica se o usuario selecionou a imagem da galeria
     private boolean imgSelecionada = false;
 
     private ProgressDialog progressDialog;
@@ -75,7 +76,6 @@ public class CadastroProduto extends AppCompatActivity {
             public void onClick(View view) {
 
                 produto = new Produto();
-                produto.setImagemReference("");
                 produto.setImagemUrl("");
                 produto.setNome(nomeProd.getText().toString());
                 if(!valorProd.getText().toString().equals("")) {
@@ -191,8 +191,6 @@ public class CadastroProduto extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 produto.setImagemUrl(downloadUrl.toString());
-                produto.setImagemReference(taskSnapshot.getMetadata().getPath());
-                produto.setImagemReference(downloadUrl.toString());
                 cadastrarProduto(produto);
 
             }

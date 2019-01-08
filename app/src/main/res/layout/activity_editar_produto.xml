@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditarProduto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_gravity="start">
+
+
+            <ImageView
+                android:id="@+id/imgEditarProd"
+                android:layout_width="200dp"
+                android:layout_height="180dp"
+                android:src="@drawable/imgprod"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtNomeEditarProd"
+                android:paddingHorizontal="8dp"
+                android:hint="Nome produto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:roundedCorners="true"
+                app:bootstrapSize="lg"
+                app:bootstrapBrand="primary"
+                android:inputType="textCapSentences" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valor:"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtValorEditarProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:inputType="numberDecimal"
+                android:hint="Valor produto"
+                app:roundedCorners="true"
+                app:bootstrapSize="lg"
+                app:bootstrapBrand="primary"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/CorPreta"
+                android:textSize="16sp"/>
+
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtDescricaoEditarProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingHorizontal="8dp"
+                android:hint="Descrição"
+                android:inputType="textCapSentences|textMultiLine"
+                android:singleLine="false"
+                app:roundedCorners="true"
+                app:bootstrapSize="lg"
+                app:bootstrapBrand="primary"/>
+
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditarProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="md"
+                android:layout_marginTop="10dp"
+                android:text="Salvar" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditarProdCancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="md"
+                android:layout_marginTop="10dp"
+                android:text="Cancelar" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

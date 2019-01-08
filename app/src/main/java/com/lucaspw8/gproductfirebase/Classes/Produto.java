@@ -11,16 +11,6 @@ public class Produto{
     private String descricao;
     private String uidUsuario;
     private String imagemUrl;
-    private String imagemReference;
-
-
-    public String getImagemReference() {
-        return imagemReference;
-    }
-
-    public void setImagemReference(String imagemReference) {
-        this.imagemReference = imagemReference;
-    }
 
     public String getUidUsuario() {
         return uidUsuario;

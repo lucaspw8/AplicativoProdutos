@@ -31,7 +31,10 @@
         </activity>
         <activity android:name=".MeuPerfilActivity" />
         <activity android:name=".EditarPerfil" />
-        <activity android:name=".EditarEmpresa"></activity>
+        <activity android:name=".EditarEmpresa" />
+        <activity android:name=".InformacaoProduto" />
+        <activity android:name=".InformacaoProdutoEmpresa" />
+        <activity android:name=".EditarProduto"></activity>
     </application>
 
 </manifest>

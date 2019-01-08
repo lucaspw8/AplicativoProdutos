@@ -6,6 +6,13 @@
     android:orientation="vertical"
     tools:context="com.lucaspw8.gproductfirebase.EmpresaPrincipalActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+
     <TextView
         android:id="@+id/txtTituloEmpresa"
         android:layout_width="match_parent"
@@ -17,11 +24,18 @@
 
     <TextView
         android:id="@+id/txtqtdProd"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:text="Quantidade de prod" />
+        android:layout_marginTop="30dp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listaProdEmpresa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

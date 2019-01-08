@@ -40,7 +40,6 @@ public class ListarProdutos extends Fragment {
         View view = inflater.inflate(R.layout.activity_listar_produtos, container, false);
 
         mrecyclerView = view.findViewById(R.id.listaProd);
-
         carregarTodosProdutos();
 
         return view;
@@ -77,7 +76,7 @@ public class ListarProdutos extends Fragment {
             }
         });
 
-        adapter = new ProdutoAdapter(listaProdutos,getActivity());
+        adapter = new ProdutoAdapter(listaProdutos,getActivity(),"usuComum");
         mrecyclerView.setAdapter(adapter);
     }
 }
