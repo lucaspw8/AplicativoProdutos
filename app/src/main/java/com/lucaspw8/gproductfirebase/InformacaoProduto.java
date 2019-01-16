@@ -1,8 +1,11 @@
 package com.lucaspw8.gproductfirebase;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,11 +17,11 @@ import java.text.DecimalFormat;
 
 public class InformacaoProduto extends AppCompatActivity {
     //Elementos visuais
-    ImageView imagemProd;
-    TextView nomeProd;
-    TextView valorProd;
-    TextView descricaoProd;
-
+    private ImageView imagemProd;
+    private TextView nomeProd;
+    private TextView valorProd;
+    private TextView descricaoProd;
+    private ActionBar actionBar;
 
     Produto produto;
 
@@ -57,6 +60,28 @@ public class InformacaoProduto extends AppCompatActivity {
         valorProd.setText("R$ "+df.format(produto.getValor()));
         descricaoProd.setText(produto.getDescricao());
 
+        //Seta de voltar
+        try {
+            actionBar = getSupportActionBar();
+            //Adiciona o botao de voltar no action bar
+            actionBar.setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+            //getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
+            //getSupportActionBar().setTitle("Seu titulo aqui");
+        } catch (NullPointerException e) {
+            Log.w("Erro", e.getMessage());
+        }
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

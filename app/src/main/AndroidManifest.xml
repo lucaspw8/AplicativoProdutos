@@ -17,7 +17,6 @@
             android:configChanges="orientation|screenSize" />
         <activity android:name=".CadastroUsuario" />
         <activity android:name=".CadastroEmpresaActivity" />
-        <activity android:name=".EmpresaPrincipalActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".MenuLateral"

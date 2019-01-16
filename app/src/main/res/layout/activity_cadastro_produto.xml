@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top"
+    android:focusable="true" android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.lucaspw8.gproductfirebase.CadastroProduto">
     <ScrollView
@@ -48,7 +49,6 @@
     <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/edtNomeProd"
         android:paddingHorizontal="8dp"
-        android:hint="Nome produto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:roundedCorners="true"
@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
         android:inputType="numberDecimal"
-        android:hint="Valor produto"
         app:roundedCorners="true"
         app:bootstrapSize="lg"
         app:bootstrapBrand="primary"/>
@@ -94,7 +93,6 @@
         android:layout_height="wrap_content"
 
         android:paddingHorizontal="8dp"
-        android:hint="Descrição"
         android:inputType="textCapSentences|textMultiLine"
         android:singleLine="false"
         app:roundedCorners="true"

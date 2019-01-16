@@ -48,6 +48,10 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         this.direcao = direcao;
 
     }
+    public void pesquisar(List<Produto> listaProd){
+        this.mprodutoList = listaProd;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override

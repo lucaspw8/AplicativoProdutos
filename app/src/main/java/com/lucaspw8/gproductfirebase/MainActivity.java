@@ -1,5 +1,6 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -203,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
                                         //Abrindo tela de empresa
                                         progressDialog.dismiss();
+                                        Intent i = new Intent(MainActivity.this,MenuLateral.class);
+                                        startActivity(i);
                                         finish();
 
 
@@ -225,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
                         //Se usuario for consumidor abre tela referente a consumidor
                     } else if (usuario.getTipoUsuario().equals("CONSUMIDOR")) {
                         //Tipo Consumidor
+                        Intent i = new Intent(MainActivity.this,MenuLateral.class);
+                        startActivity(i);
                         finish();
                         }
                 }
@@ -303,6 +308,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }
 
 

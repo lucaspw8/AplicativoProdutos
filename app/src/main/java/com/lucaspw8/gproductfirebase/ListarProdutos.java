@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,5 +80,18 @@ public class ListarProdutos extends Fragment {
 
         adapter = new ProdutoAdapter(listaProdutos,getActivity(),"usuComum");
         mrecyclerView.setAdapter(adapter);
+    }
+
+    public void pesquisarProd(String texto){
+        Log.d("Lista Prod", texto);
+        List<Produto> newListProd = new ArrayList<Produto>();
+        if(adapter !=null){
+            for (Produto prodList: listaProdutos) {
+                if(prodList.getNome().toLowerCase().contains(texto)){
+                    newListProd.add(prodList);
+                }
+            }
+            adapter.pesquisar(newListProd);
+        }
     }
 }

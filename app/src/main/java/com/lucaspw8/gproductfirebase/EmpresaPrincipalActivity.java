@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -146,6 +147,18 @@ public class EmpresaPrincipalActivity extends Fragment {
     }
 
 
+    public void pesquisarProd(String texto){
+        Log.d("Lista Prod", texto);
+        List<Produto> newListProd = new ArrayList<Produto>();
+        if(adapter !=null){
+            for (Produto prodList: listaProdutos) {
+                if(prodList.getNome().toLowerCase().contains(texto)){
+                    newListProd.add(prodList);
+                }
+            }
+            adapter.pesquisar(newListProd);
+        }
+    }
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

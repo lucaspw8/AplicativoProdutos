@@ -8,6 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:focusable="true" android:focusableInTouchMode="true"
     tools:context="com.lucaspw8.gproductfirebase.MainActivity">
 
     <ScrollView
@@ -34,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="E-MAIL:"
+                android:text="E-mail:"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
@@ -52,7 +53,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SENHA:"
+                android:text="Senha:"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
@@ -90,7 +91,7 @@
                 app:showOutline="false"
                 android:layout_marginTop="10dp"
 
-                android:text="LOGIN"/>
+                android:text="Login"/>
 
             <TextView
                 android:id="@+id/txtCrieConta"

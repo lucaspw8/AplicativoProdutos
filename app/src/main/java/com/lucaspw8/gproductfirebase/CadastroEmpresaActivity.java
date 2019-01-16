@@ -112,6 +112,8 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
             referenceFirebase.child(key).setValue(empresa);
             progressDialog.dismiss();
             Toast.makeText( CadastroEmpresaActivity.this,"Empresa cadastrada com sucesso",Toast.LENGTH_LONG).show();
+            Intent i = new Intent(CadastroEmpresaActivity.this,MenuLateral.class);
+            startActivity(i);
             finish();
 
 
