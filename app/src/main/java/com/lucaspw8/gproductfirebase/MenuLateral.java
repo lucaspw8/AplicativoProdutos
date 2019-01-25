@@ -2,6 +2,8 @@ package com.lucaspw8.gproductfirebase;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -112,7 +114,7 @@ public class MenuLateral extends AppCompatActivity
         if(!pesquisa) {
             menuCadastrarProdutos.setVisible(false);
             //Se user logado
-            if (userPref.getTipoUsu() != null) {
+            if (usuarioLogado()) {
                 //Oculta opc login
                 menuLoginItem.setVisible(false);
                 //Exibe opc logout
@@ -128,12 +130,20 @@ public class MenuLateral extends AppCompatActivity
                     //Exibe a opc de cadastro de produto
                     menuCadastrarProdutos.setVisible(true);
                     navigationView.setCheckedItem(R.id.nav_home);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_conteiner, new EmpresaPrincipalActivity()).commit();
+                    if(getCurrentFragment() instanceof EmpresaPrincipalActivity){
+
+                    }else {
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.frame_conteiner, new EmpresaPrincipalActivity()).commit();
+                    }
                 } else if (userPref.getTipoUsu().equals("CONSUMIDOR")) {
                     navigationView.setCheckedItem(R.id.nav_home);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+                    if(getCurrentFragment() instanceof ListarProdutos){
+
+                    }else {
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+                    }
                 }
                 //Se user não logado
             } else {
@@ -144,25 +154,34 @@ public class MenuLateral extends AppCompatActivity
                 //Oculta opc Conta usuario
                 menuContausu.setVisible(false);
                 navigationView.setCheckedItem(R.id.nav_home);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+                if(getCurrentFragment() instanceof ListarProdutos){
+
+                }else {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_conteiner, new ListarProdutos()).commit();
+                }
             }
         }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
         } else {
-            //super.onBackPressed();
-            if(getSupportFragmentManager().getBackStackEntryCount() > 1){
-                getSupportFragmentManager().popBackStack();
-            }else{
-                moveTaskToBack(true);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                //super.onBackPressed();
+                if(getSupportFragmentManager().getBackStackEntryCount() > 1){
+                    getSupportFragmentManager().popBackStack();
+                }else{
+                    moveTaskToBack(true);
+                }
             }
         }
+
     }
 
     @Override
@@ -193,7 +212,13 @@ public class MenuLateral extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Usuario fez a busca
-                Toast.makeText(MenuLateral.this,"Procure: "+query,Toast.LENGTH_LONG).show();
+                Fragment atual = getCurrentFragment();
+                pesquisa = true;
+                if(atual instanceof ListarProdutos){
+                    ((ListarProdutos) atual).pesquisarProd(query);
+                }else if(atual instanceof EmpresaPrincipalActivity){
+                    ((EmpresaPrincipalActivity) atual).pesquisarProd(query);
+                }
                 return false;
             }
 
@@ -265,7 +290,7 @@ public class MenuLateral extends AppCompatActivity
         Intent intent = new Intent(this,MeuPerfilActivity.class);
         startActivity(intent);
     }
-
+    //Desloga o usuario e limpa as preferencias
     private void deslogar() {
         autenticacao.signOut();
         userPref.limparDados();
@@ -275,8 +300,25 @@ public class MenuLateral extends AppCompatActivity
         startActivity(intent);
     }
 
+    /**
+     * Retorna o fragmento atual
+     * @return Fragment
+     */
     public android.support.v4.app.Fragment getCurrentFragment() {
         return this.getSupportFragmentManager().findFragmentById(R.id.frame_conteiner);
+    }
+
+    /**
+     * Informa se o usuario ja está logado
+     * @return Boolean
+     */
+    public Boolean usuarioLogado(){
+
+        if(FirebaseAuth.getInstance().getCurrentUser() !=null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

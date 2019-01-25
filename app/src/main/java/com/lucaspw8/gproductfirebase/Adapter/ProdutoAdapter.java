@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lucaspw8.gproductfirebase.CadastroUsuario;
+import com.lucaspw8.gproductfirebase.Classes.Empresa;
 import com.lucaspw8.gproductfirebase.Classes.Produto;
 import com.lucaspw8.gproductfirebase.InformacaoProduto;
 import com.lucaspw8.gproductfirebase.InformacaoProdutoEmpresa;
@@ -38,8 +39,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     private List<Produto> mprodutoList;
     private Context context;
     private DatabaseReference referenciaFirebase;
-    private List<Produto> produtos;
     private Produto todosProdutos;
+    private Empresa empresa;
     private String direcao;
 
     public ProdutoAdapter(List<Produto> l, Context c,String direcao){
@@ -56,6 +57,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     @NonNull
     @Override
     public ProdutoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        empresa = new Empresa();
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.modelolistprod,viewGroup,false);
         return new ProdutoAdapter.ViewHolder(itemView);
@@ -65,34 +67,43 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ProdutoAdapter.ViewHolder holder, final int position) {
         final Produto item = mprodutoList.get(position);
 
-       produtos = new ArrayList<>();
 
-        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
-        referenciaFirebase.child("produto").orderByChild("nome").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                produtos.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    todosProdutos = postSnapshot.getValue(Produto.class);
-
-                    produtos.add(todosProdutos);
-
-                    DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //formata o valor para ficar mais amigavel
         DecimalFormat df = new DecimalFormat("0.00");
-
+        //Define o texto da lista de prod
         holder.txtNomeProdLista.setText(item.getNome());
         holder.txtValorProdLista.setText("R$ "+df.format(item.getValor()));
         holder.txtDescriProdLista.setText(item.getDescricao());
+
+        //Colocando o nome da empresa na lista
+        if(direcao.equals("usuComum")){
+            //volta a visibilidade do item
+            holder.txtEmpresaProdLista.setVisibility(View.VISIBLE);
+            //Se empresa atual tem o mesmo uid do produto atual
+            if(item.getUidUsuario().equals(empresa.getUidUsuario())){
+                holder.txtEmpresaProdLista.setText("Vendido por: "+empresa.getNome());
+
+            }else {
+                referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+                referenciaFirebase.child("empresa").orderByChild("uidUsuario").equalTo(item.getUidUsuario()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            empresa = postSnapshot.getValue(Empresa.class);
+                            holder.txtEmpresaProdLista.setText("Vendido por: "+empresa.getNome());
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+        }
+
 
         if(item.getImagemUrl().equals("")){
             Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/gproduct-3086b.appspot.com/o/imgprod.png?alt=media&token=cdd47373-d625-4c04-b64b-0f372d811281")
@@ -140,6 +151,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         protected TextView txtNomeProdLista;
         protected TextView txtValorProdLista;
         protected TextView txtDescriProdLista;
+        protected TextView txtEmpresaProdLista;
         protected ImageView fotoProdutoLista;
         protected LinearLayout linearLayoutProdutosLista;
 
@@ -149,6 +161,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
             txtNomeProdLista = itemView.findViewById(R.id.txtNomeProdLista);
             txtValorProdLista = itemView.findViewById(R.id.txtValorProdLista);
             txtDescriProdLista = itemView.findViewById(R.id.txtDescriProdLista);
+            txtEmpresaProdLista = itemView.findViewById(R.id.txtEmpresaProdLista);
 
             fotoProdutoLista = itemView.findViewById(R.id.fotoProdutoLista);
             linearLayoutProdutosLista = itemView.findViewById(R.id.linearLayoutProdutosLista);

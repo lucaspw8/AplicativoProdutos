@@ -32,20 +32,28 @@
             android:id="@+id/txtNomeProdLista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:text="Nome prod"/>
         <TextView
             android:id="@+id/txtValorProdLista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:text="Valor Prod"/>
         <TextView
             android:id="@+id/txtDescriProdLista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:text="Descrição"/>
+
+        <TextView
+            android:id="@+id/txtEmpresaProdLista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:visibility="gone"
+            android:text="Vendido por:"/>
 
 
     </LinearLayout>
