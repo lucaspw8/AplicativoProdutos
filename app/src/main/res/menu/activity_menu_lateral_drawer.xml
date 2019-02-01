@@ -8,26 +8,24 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:title="Home" />
+            android:title="Início" />
 
         <item
             android:id="@+id/nav_produtos"
-            android:icon="@drawable/ic_menu_produtos"
+            android:icon="@drawable/ic_menu_novo_produto"
             android:title="Novo produto" />
         <item
             android:id="@+id/nav_contausu"
             android:icon="@drawable/ic_menu_contausu"
-            android:title="Conta" />
+            android:title="Meu perfil" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
                 android:id="@+id/nav_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:icon="@drawable/ic_ico_login"
                 android:title="Login" />
             <item
@@ -37,7 +35,6 @@
         </menu>
     </item>
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="manage" />

@@ -43,6 +43,7 @@ public class ListarProdutos extends Fragment {
 
         mrecyclerView = view.findViewById(R.id.listaProd);
         carregarTodosProdutos();
+        getActivity().setTitle("Início comprador");
 
         return view;
     }

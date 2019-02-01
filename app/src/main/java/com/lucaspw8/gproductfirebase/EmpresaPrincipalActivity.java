@@ -1,5 +1,7 @@
 package com.lucaspw8.gproductfirebase;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -101,6 +103,17 @@ public class EmpresaPrincipalActivity extends Fragment {
         empresa = empresaPreferencias.getEmpresa();
         txttituloEmpresa.setText(empresa.getNome());
         carregarTodosProdutos();
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),CadastroProduto.class);
+                startActivity(intent);
+            }
+        });
+
+        getActivity().setTitle("Início vendedor");
         return view;
     }
 

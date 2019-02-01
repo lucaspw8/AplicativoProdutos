@@ -225,7 +225,6 @@ public class MenuLateral extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 Fragment atual = getCurrentFragment();
-                pesquisa = true;
                 if(atual instanceof ListarProdutos){
                    ((ListarProdutos) atual).pesquisarProd(newText);
                 }else if(atual instanceof EmpresaPrincipalActivity){
@@ -246,12 +245,6 @@ public class MenuLateral extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(MenuLateral.this,CadastroProduto.class);
-            startActivity(intent);
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -267,8 +260,6 @@ public class MenuLateral extends AppCompatActivity
         }else if (id == R.id.nav_produtos) {
             Intent intent = new Intent(this,CadastroProduto.class);
             startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_contausu) {
             perfilUsu();
@@ -286,11 +277,17 @@ public class MenuLateral extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Abre a tela do perfil do usuario
+     */
     private void perfilUsu() {
         Intent intent = new Intent(this,MeuPerfilActivity.class);
         startActivity(intent);
     }
-    //Desloga o usuario e limpa as preferencias
+
+    /**
+     * Desloga o usuario e limpa as preferencias
+     */
     private void deslogar() {
         autenticacao.signOut();
         userPref.limparDados();

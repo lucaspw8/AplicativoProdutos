@@ -98,6 +98,8 @@ public class CadastroEmpresaActivity extends AppCompatActivity {
 
             }
         });
+
+        getSupportActionBar().setTitle("Nova empresa");
     }
 
     /**

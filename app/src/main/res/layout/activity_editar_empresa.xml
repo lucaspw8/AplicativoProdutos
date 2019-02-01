@@ -25,7 +25,6 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/txtNomeEmpresa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome:"
@@ -44,7 +43,6 @@
 
 
             <TextView
-                android:id="@+id/txtTelefoneEmpresa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

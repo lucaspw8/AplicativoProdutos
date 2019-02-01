@@ -144,6 +144,7 @@ public class EditarProduto extends AppCompatActivity {
             actionBar = getSupportActionBar();
             //Adiciona o botao de voltar no action bar
             actionBar.setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+            actionBar.setTitle("Editar produto");
             //getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
             //getSupportActionBar().setTitle("Seu titulo aqui");
         } catch (NullPointerException e) {

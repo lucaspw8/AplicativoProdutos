@@ -19,7 +19,6 @@
         android:padding="16dp">
 
     <TextView
-        android:id="@+id/txtTitulotela"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cadastre sua empresa"
@@ -27,7 +26,6 @@
         android:textSize="20sp"/>
 
     <TextView
-        android:id="@+id/txtNomeEmpresa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/CorPreta"
@@ -48,7 +46,6 @@
 
 
     <TextView
-        android:id="@+id/txtTelefoneEmpresa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -73,7 +70,6 @@
         android:text="Endereço"
         android:gravity="center"
         android:textSize="16sp"
-        android:id="@+id/textView"
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -95,7 +91,6 @@
        />
 
     <TextView
-        android:id="@+id/txtBairro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bairro:"
@@ -114,7 +109,6 @@
         app:bootstrapBrand="primary"/>
 
     <TextView
-        android:id="@+id/txtNumero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Número:"
@@ -134,7 +128,6 @@
         app:bootstrapBrand="primary"/>
 
     <TextView
-        android:id="@+id/txtComplemento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

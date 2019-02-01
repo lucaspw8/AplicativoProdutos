@@ -10,9 +10,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -36,7 +38,7 @@ import java.io.ByteArrayOutputStream;
 
 
 public class CadastroProduto extends AppCompatActivity {
-
+    ActionBar actionBar;
     private BootstrapEditText nomeProd;
     private BootstrapEditText valorProd;
     private BootstrapEditText descricao;
@@ -95,6 +97,17 @@ public class CadastroProduto extends AppCompatActivity {
                 }
             }
         });
+
+        try {
+            actionBar = getSupportActionBar();
+            //Adiciona o botao de voltar no action bar
+            actionBar.setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+            actionBar.setTitle("Novo produto");
+            //getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
+            //getSupportActionBar().setTitle("Seu titulo aqui");
+        }catch (NullPointerException e){
+            Log.w("Erro",e.getMessage());
+        }
     }
 
     @Override
@@ -240,6 +253,17 @@ public class CadastroProduto extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

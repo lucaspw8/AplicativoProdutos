@@ -67,6 +67,11 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ProdutoAdapter.ViewHolder holder, final int position) {
         final Produto item = mprodutoList.get(position);
 
+        if (position >= mprodutoList.size()-1 && mprodutoList.size() >=4){
+            holder.view.setVisibility(View.VISIBLE);
+        }else {
+            holder.view.setVisibility(View.GONE);
+        }
 
         //formata o valor para ficar mais amigavel
         DecimalFormat df = new DecimalFormat("0.00");
@@ -139,12 +144,16 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
             }
         });
 
+
+
     }
 
     @Override
     public int getItemCount() {
         return mprodutoList.size();
     }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -154,6 +163,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         protected TextView txtEmpresaProdLista;
         protected ImageView fotoProdutoLista;
         protected LinearLayout linearLayoutProdutosLista;
+        protected View view;
 
         public ViewHolder (View itemView){
             super(itemView);
@@ -165,6 +175,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
 
             fotoProdutoLista = itemView.findViewById(R.id.fotoProdutoLista);
             linearLayoutProdutosLista = itemView.findViewById(R.id.linearLayoutProdutosLista);
+            view = itemView.findViewById(R.id.viewLista);
         }
     }
 }

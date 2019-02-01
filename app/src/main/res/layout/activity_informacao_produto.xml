@@ -23,8 +23,7 @@
                 android:layout_height="180dp"
                 android:src="@drawable/imgprod"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"/>
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:id="@+id/txtNomeInformacaoComumprod"

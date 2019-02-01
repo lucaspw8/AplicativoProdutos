@@ -19,7 +19,6 @@
     android:orientation="vertical"
         android:layout_gravity="start">
     <TextView
-        android:id="@+id/txtTitulotela"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CADASTRO DE PRODUTO"
@@ -39,7 +38,6 @@
 
 
     <TextView
-        android:id="@+id/txtNomeprod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome:"
@@ -58,7 +56,6 @@
 
 
     <TextView
-        android:id="@+id/txtValorProd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Valor:"
@@ -78,7 +75,6 @@
 
 
     <TextView
-        android:id="@+id/txtDescricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descrição"

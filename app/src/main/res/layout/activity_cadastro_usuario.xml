@@ -20,7 +20,6 @@
 
 
             <TextView
-                android:id="@+id/txtTitulotela"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NOVO USUARIO"
@@ -28,7 +27,6 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/txtNomeUsu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome:"
@@ -47,7 +45,6 @@
 
 
             <TextView
-                android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="E-mail:"
@@ -91,7 +88,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <TextView
-                android:id="@+id/txtRepetirSenha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtSenha"
@@ -118,7 +114,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <TextView
-                android:id="@+id/txtTipoUsu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sou um usuario:"
