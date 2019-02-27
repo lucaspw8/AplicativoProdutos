@@ -1,6 +1,7 @@
 package com.lucaspw8.gproductfirebase;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -41,6 +42,8 @@ public class InformacaoProdutoEmpresa extends AppCompatActivity {
     private DatabaseReference referenciaFirebase;
 
     Produto produto;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +159,8 @@ public class InformacaoProdutoEmpresa extends AppCompatActivity {
         btConfirmaExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = ProgressDialog.show(InformacaoProdutoEmpresa.this,
+                        "Aguarde!","Excluindo produto..!",true);
                 excluirProd();
                 dialog.dismiss();
             }
@@ -192,8 +197,10 @@ public class InformacaoProdutoEmpresa extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                  Toast.makeText(InformacaoProdutoEmpresa.this,
                                          "Produto excluido!",Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
                                         finish();
                                 }else{
+                                    progressDialog.dismiss();
                                     Toast.makeText(InformacaoProdutoEmpresa.this,
                                             "Erro ao excluir!",Toast.LENGTH_LONG).show();
                                 }

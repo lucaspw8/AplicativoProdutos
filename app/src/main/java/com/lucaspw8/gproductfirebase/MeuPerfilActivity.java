@@ -1,6 +1,7 @@
 package com.lucaspw8.gproductfirebase;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -63,7 +64,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
     Empresa empresa;
 
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +200,9 @@ public class MeuPerfilActivity extends AppCompatActivity {
                                         limparPrefUsuario();
                                         finish();
 
+                                    }else{
+                                        progressDialog.dismiss();
+                                        Toast.makeText(MeuPerfilActivity.this,"Erro ao excluir ",Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -207,7 +211,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(MeuPerfilActivity.this,"Erro ao excluir "+databaseError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -221,6 +225,7 @@ public class MeuPerfilActivity extends AppCompatActivity {
                 databaseReference = ConfiguracaoFirebase.getFirebase();
                 databaseReference.child("empresa").child(empresaPreferencias.getEmpresa().getKeyEmpresa()).removeValue();
                 limparPrefEmpresa();
+                progressDialog.dismiss();
                 finish();
 
         } catch (Exception e) {
@@ -290,6 +295,8 @@ public class MeuPerfilActivity extends AppCompatActivity {
         btConfirmaExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = ProgressDialog.show(MeuPerfilActivity.this,
+                        "Aguarde!","Excluindo conta..!",true);
                 excluirUsuarioDeslogar();
                 dialog.dismiss();
             }
@@ -319,6 +326,8 @@ public class MeuPerfilActivity extends AppCompatActivity {
         btConfirmaExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = ProgressDialog.show(MeuPerfilActivity.this,
+                        "Aguarde!","Excluindo empresa..!",true);
                 excluirEmpresa();
                     Toast.makeText(MeuPerfilActivity.this, "Empresa excluida com sucesso!", Toast.LENGTH_LONG).show();
                     dialog.dismiss();

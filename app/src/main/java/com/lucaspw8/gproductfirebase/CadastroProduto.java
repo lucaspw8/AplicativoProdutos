@@ -87,13 +87,18 @@ public class CadastroProduto extends AppCompatActivity {
                 produto.setUidUsuario(usuarioPreferencias.getUidUsu());
                 //Desabilita o click do botao
                 btCadastrarProd.setClickable(false);
-                progressDialog = ProgressDialog.show(CadastroProduto.this, "Aguarde.",
+                progressDialog = ProgressDialog.show(CadastroProduto.this, "Aguarde!",
                         "Cadastrando Produto..!", true);
-
-                if(imgSelecionada) {
-                    cadastrarFotoProd();
+                if(!produto.getNome().equals("")) {
+                    if (imgSelecionada) {
+                        cadastrarFotoProd();
+                    } else {
+                        cadastrarProduto(produto);
+                    }
                 }else{
-                    cadastrarProduto(produto);
+                    Toast.makeText(CadastroProduto.this,"Defina um nome para o produto",Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                    btCadastrarProd.setClickable(true);
                 }
             }
         });
