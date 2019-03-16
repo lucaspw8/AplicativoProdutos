@@ -77,7 +77,7 @@ public class InformacaoProduto extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     empresa = postSnapshot.getValue(Empresa.class);
                     nomeVendedorInf.setText(empresa.getNome());
-                    telefoneVendedorInf.setText("Contato "+empresa.getTelefone());
+                    telefoneVendedorInf.setText("Contato: "+empresa.getTelefone());
                     enderecoVendedorInf.setText("Endereço\n"+empresa.getRua()+" "+empresa.getNumero()+" "+empresa.getBairro());
                 }
             }

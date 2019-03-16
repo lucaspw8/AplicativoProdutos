@@ -60,7 +60,7 @@ public class ListarProdutos extends Fragment {
 
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
-        referenciaFirebase.child("produto").orderByChild("nome").addValueEventListener(new ValueEventListener() {
+        referenciaFirebase.child("produto").orderByChild("valor").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                listaProdutos.clear();
